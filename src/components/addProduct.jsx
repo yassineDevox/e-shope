@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "../utils/axios";
 
 export default class ProductADD extends React.Component {
   //lors d'initialisation du component
@@ -125,6 +126,17 @@ export default class ProductADD extends React.Component {
     if (this.state.img == "") this.setState({ errorImage: true });
     else this.setState({ errorImage: false });
 
+    //collect the data object 
+    const Data = {
+      title:this.state.title,
+      desc:this.state.desc,
+      img:this.state.img,
+    }
+
+    //send the data with axios to firebase
+    axios.post("/orders.json",Data).then((response)=>{
+      console.log(response)
+    })
     // console.log(this.state);
   };
 }
