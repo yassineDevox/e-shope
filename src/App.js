@@ -1,5 +1,5 @@
 import Header from "./components/Header/header";
-import ProductADD from "./components/addProduct"
+import ProductADD from "./components/add-product/addProduct";
 
 function App() {
   return (
