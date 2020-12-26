@@ -7,9 +7,15 @@ export default class ProductADD extends React.Component {
   constructor(props) {
     //passer les attributs (props ) a la classe mere Component
     super(props);
-
+    //class variable error initialised to true because we dont have data inputs for the first time 
+    this.ERROR = true;
     //definir les variables qui seront actualiser automatiquement dans la partie html
+    // this.didupdate=0;
     this.state = {
+      // lifeCycle: {
+      //   didmount: 0,
+      //   didupdate: 0,//it cant be true acctually because the componentDidUpdate it calls after the setState so it just like illimeted loop
+      // },
       product: {
         title: "",
         desc: "",
@@ -25,16 +31,16 @@ export default class ProductADD extends React.Component {
   //partie UI (user interface html )
   render() {
     return (
-      <AddProductUI
-        title={this.state.product.title}
-        desc={this.state.product.desc}
-        img={this.state.product.img}
-        errorTitle={this.state.error.title}
-        errorImg={this.state.error.img}
-        errorDesc={this.state.error.desc}
-        onChangeInput={this.onChangeInput}
-        onAddProduct={this.onAddProduct}
-      />
+        <AddProductUI
+          title={this.state.product.title}
+          desc={this.state.product.desc}
+          img={this.state.product.img}
+          errorTitle={this.state.error.title}
+          errorImg={this.state.error.img}
+          errorDesc={this.state.error.desc}
+          onChangeInput={this.onChangeInput}
+          onAddProduct={this.onAddProduct}
+        />
     );
   }
 
@@ -46,8 +52,8 @@ export default class ProductADD extends React.Component {
     //7at liya lvaleur dyal name fel partie key
     this.setState((currentState) => {
       currentState.product[name] = value;
-      //etape 3 changer la valeur de error si title est vide
-      Object.keys(currentState.product).map((key) => this.validateInput(key));
+      //validate the current input
+      this.validateInput(currentState,name);
       return currentState;
     });
   };
@@ -57,37 +63,49 @@ export default class ProductADD extends React.Component {
     event.preventDefault();
 
     this.setState((currentState) => {
-
       //etape 3 changer la valeur de error si title est vide
-      Object.keys(currentState.product).map((key) => this.validateInput(key));
-
-      const { title, desc, img } = currentState.error;
-      // console.log(currentState.error,title,desc,img);
-
-      // ! fe blast ==false
-      if (!title && !desc && !img) {
+      Object.keys(currentState.product).map((key) => {
+        this.ERROR = this.validateInput(currentState,key);
+      });
+      
+    }); 
+      
+    if (!this.ERROR) {
         //Collect data using spread operator
-        const Data = { ...currentState };
-
-        //send the data to the server using axios
-        //and get back the data using then method
+        const Data = { ...this.state.product };
+  
+        // console.log('sending data')
+        // send the data to the server using axios
         axios.post("/products.json", Data).then((data) => {
           console.log(data);
         });
       }
-    });
+  
+
+    
   };
 
   //input pour indiquer les entrers et aussi la partie error lier avec cet input
-  validateInput = (input) => {
+  validateInput = (myState,input) => {
+
     // console.log(this.state,input,this.state.product[input])
-    let ERROR = false;
+    let err = false;
 
-    if (this.state.product[input] == "") ERROR = true;
-
-    this.setState((currentState) => {
-      currentState.error[input] = ERROR;
-      return currentState;
-    });
+    if (myState.product[input] == "") err = true;
+    // else this.ERROR=false
+     myState.error[input] = err;
+     this.forceUpdate();
+     return err;
+   
   };
+
+  //life cycle hooks react
+  componentDidMount=() => {
+    // this.setState((currentState) => {
+    //   currentState.lifeCycle.didmount++;
+    //   return currentState;
+    // });
+  }
+  componentDidUpdate=() => {
+  }
 }
