@@ -10,24 +10,28 @@ export default class ProductADD extends React.Component {
 
     //definir les variables qui seront actualiser automatiquement dans la partie html
     this.state = {
-      title: "",
-      desc: "",
-      img: "",
-      errorTitle: false, //etape une ajouter un variable error de type boolean,
-      errorDesc: false,
-      errorImg: false, //camelcasse hia l7arf lawal majiscule dyal kalma tania
+      product: {
+        title: "",
+        desc: "",
+        img: "",
+      },
+      error: {
+        title: false,
+        desc: false,
+        img: false,
+      }, //camelcasse hia l7arf lawal majiscule dyal kalma tania
     };
   }
   //partie UI (user interface html )
   render() {
     return (
       <AddProductUI
-        title={this.state.title}
-        desc={this.state.desc}
-        img={this.state.img}
-        errorTitle={this.state.errorTitle}
-        errorImg={this.state.errorImg}
-        errorDesc={this.state.errorDesc}
+        title={this.state.product.title}
+        desc={this.state.product.desc}
+        img={this.state.product.img}
+        errorTitle={this.state.error.title}
+        errorImg={this.state.error.img}
+        errorDesc={this.state.error.desc}
         onChangeInput={this.onChangeInput}
         onAddProduct={this.onAddProduct}
       />
@@ -40,45 +44,50 @@ export default class ProductADD extends React.Component {
     let value = e.target.value;
     let name = e.target.name;
     //7at liya lvaleur dyal name fel partie key
-    this.setState({ [name]: value });
+    this.setState((currentState) => {
+      currentState.product[name] = value;
+      //etape 3 changer la valeur de error si title est vide
+      Object.keys(currentState.product).map((key) => this.validateInput(key));
+      return currentState;
+    });
   };
 
   onAddProduct = (event) => {
     //pour que la page ne s'actualise pas apres le click
     event.preventDefault();
 
-    
-    //etape 3 changer la valeur de error si title est vide
-    this.validateInput(this.state.title, "errorTitle");
-    this.validateInput(this.state.desc, "errorDesc");
-    this.validateInput(this.state.img, "errorImg");
+    this.setState((currentState) => {
 
-    let e1 = this.state.title;
-    let e2 = this.state.desc;
-    let e3 = this.state.img;
+      //etape 3 changer la valeur de error si title est vide
+      Object.keys(currentState.product).map((key) => this.validateInput(key));
 
-    // const { e1, e2, e3 } = this.state.error;
+      const { title, desc, img } = currentState.error;
+      // console.log(currentState.error,title,desc,img);
 
-    //! fe blast ==false
-    if (e1!="" && e2!="" && e3!="c") {
-      //Collect data
-      const Data = {
-        title: this.state.title,
-        desc: this.state.desc,
-        img: this.state.img,
-      };
+      // ! fe blast ==false
+      if (!title && !desc && !img) {
+        //Collect data using spread operator
+        const Data = { ...currentState };
 
-      //send the data to the server using axios
-      //and get back the data using then method
-      axios.post("/products.json", Data).then((data) => {
-        console.log(data);
-      });
-    }
+        //send the data to the server using axios
+        //and get back the data using then method
+        axios.post("/products.json", Data).then((data) => {
+          console.log(data);
+        });
+      }
+    });
   };
 
   //input pour indiquer les entrers et aussi la partie error lier avec cet input
-  validateInput = (input, keyError) => {
-    if (input == "") this.setState({ [keyError]: true });
-    else this.setState({ [keyError]: false });
+  validateInput = (input) => {
+    // console.log(this.state,input,this.state.product[input])
+    let ERROR = false;
+
+    if (this.state.product[input] == "") ERROR = true;
+
+    this.setState((currentState) => {
+      currentState.error[input] = ERROR;
+      return currentState;
+    });
   };
 }
