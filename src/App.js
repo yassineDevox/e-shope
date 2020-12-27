@@ -1,5 +1,6 @@
 import Header from "./components/Header/header";
 import ProductADD from "./components/add-product/addProduct";
+import ListProduct from "./components/list-product/listProducts";
 
 function App() {
   return (
@@ -7,6 +8,8 @@ function App() {
       <Header />
       <main className="container p-5">
         <ProductADD />
+        <hr color='gray'/>
+        <ListProduct />
       </main>
     </div>
   );
