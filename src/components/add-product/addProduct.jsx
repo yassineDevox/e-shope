@@ -2,6 +2,7 @@ import React from "react";
 import AddProductUI from "./addProductUI";
 import axios from "../../utils/axios";
 
+
 export default class ProductADD extends React.Component {
 
   constructor() {
@@ -27,6 +28,7 @@ export default class ProductADD extends React.Component {
   render() {
     return (
     <section className='col-4 border-right d-flex align-items-center'>
+      
         <AddProductUI
         title={this.state.product.title}
         desc={this.state.product.desc}
@@ -37,6 +39,7 @@ export default class ProductADD extends React.Component {
         onChangeInput={this.onChangeInput}
         onAddProduct={this.onAddProduct}
       />
+      
     </section>
     );
   }
@@ -56,7 +59,6 @@ export default class ProductADD extends React.Component {
   };
 
   onAddProduct = (event) => {
-
     let error = {
       title: false,
       desc: false,
