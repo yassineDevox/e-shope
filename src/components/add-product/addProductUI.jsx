@@ -1,7 +1,8 @@
+
 export default function AddProductUI(props){
     return (
-        <form onSubmit={props.onAddProduct}>
-        <div className="mb-3">
+        <form onSubmit={props.onAddProduct} className='flex-grow-1'>
+        <div className="mb-3 text-center">
           <label htmlFor="t" className="form-label">
             Title
           </label>
@@ -22,7 +23,7 @@ export default function AddProductUI(props){
           </small>
         </div>
 
-        <div className="mb-3">
+        <div className="mb-3 text-center">
           <label htmlFor="d" className="form-label">
             Description
           </label>
@@ -42,13 +43,13 @@ export default function AddProductUI(props){
           </small>
         </div>
 
-        <div>
+        <div className='text-center'>
           <label htmlFor="i" className="form-label">
             Image
           </label>
           <div className="input-group ">
             <span className="input-group-text">
-              https://example.com/images/
+              URL:/
             </span>
             <input
               type="text"
@@ -67,12 +68,15 @@ export default function AddProductUI(props){
           </small>
         </div>
 
-        <button
+       <div className="text-center">
+       <button
           type="submit"
-          className="btn btn-success mt-3"
+          className="btn btn-success mt-3 text-uppercase"
         >
-          Add Product
+          add product <i className="fa fa-plus"></i>
         </button>
+       </div>
+          
       </form>
     )
 }

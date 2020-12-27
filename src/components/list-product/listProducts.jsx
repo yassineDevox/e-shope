@@ -1,6 +1,7 @@
 import React from "react";
-import Product from "./product";
 import axios from "../../utils/axios";
+import RowProduct from './row-product';
+import './list-product.css';
 
 export default class ListProduct extends React.Component {
   constructor() {
@@ -8,18 +9,13 @@ export default class ListProduct extends React.Component {
     this.state = {
       products: [],
     };
+
   }
 
   render() {
     return (
-      <section className="d-flex justify-content-around">
-        {
-          this.state.products.map((p) => {
-            return (
-              <Product key={p.id} title={p.title} img={p.img} desc={p.desc} />
-            );
-          })
-        }
+      <section className="col-8 d-flex justify-content-around add-scroll">
+        <RowProduct listProducts = {this.state.products} />
       </section>
     );
   }

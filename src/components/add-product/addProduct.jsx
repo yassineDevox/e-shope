@@ -26,7 +26,8 @@ export default class ProductADD extends React.Component {
   //partie UI (user interface html )
   render() {
     return (
-      <AddProductUI
+    <section className='col-4 border-right d-flex align-items-center'>
+        <AddProductUI
         title={this.state.product.title}
         desc={this.state.product.desc}
         img={this.state.product.img}
@@ -36,6 +37,7 @@ export default class ProductADD extends React.Component {
         onChangeInput={this.onChangeInput}
         onAddProduct={this.onAddProduct}
       />
+    </section>
     );
   }
   //---------EVENTS HHANDLERS 😁-------------

@@ -6,9 +6,8 @@ function App() {
   return (
     <div>
       <Header />
-      <main className="container p-5">
+      <main className="row p-5">
         <ProductADD />
-        <hr color='gray'/>
         <ListProduct />
       </main>
     </div>
