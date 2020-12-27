@@ -73,7 +73,7 @@ export default function AddProductUI(props){
           type="submit"
           className="btn btn-success mt-3 text-uppercase"
         >
-          add product <i className="fa fa-plus"></i>
+          add <i className="fa fa-plus"></i>
         </button>
        </div>
           

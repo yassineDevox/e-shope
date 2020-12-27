@@ -10,12 +10,20 @@ export default function RowProduct(props) {
       <td>{props.title}</td>
       <td>{props.desc}</td>
       <td>
-        <button onClick={ props.handleUpdate} style={{ zoom: 0.8 }} className="mr-2 btn btn-info">
-          {" "}
+        <button
+          onClick={props.handleUpdate}
+          style={{ zoom: 0.8 }}
+          className="mr-2 btn btn-info"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
           <i className="fa fa-edit"></i>
         </button>
-        <button onClick={ props.handleDelete} style={{ zoom: 0.8 }} className="btn btn-danger">
-          {" "}
+        <button
+          onClick={props.handleDelete}
+          style={{ zoom: 0.8 }}
+          className="btn btn-danger"
+        >
           <i className="fa fa-trash"></i>
         </button>
       </td>

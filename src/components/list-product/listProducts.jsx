@@ -3,13 +3,14 @@ import axios from "../../utils/axios";
 import RowProduct from "./row-product";
 import "./list-product.css";
 import swal from "sweetalert";
+import Modal from "../shared/modal/modal";
 
 export default class ListProduct extends React.Component {
   constructor() {
     super();
     this.state = {
       products: [],
-      show: false,
+      updatedProduct: {},
     };
   }
 
@@ -51,10 +52,23 @@ export default class ListProduct extends React.Component {
             })}
           </tbody>
         </table>
+        <Modal
+          p={this.state.updatedProduct}
+          onUpdateProduct={this._updateProduct}
+          onChangeInput={this.onChangeInput}
+        />
       </section>
     );
   }
 
+  onChangeInput=(e)=>{
+    let value = e.target.value;
+    let name = e.target.name;
+    this.setState((s)=>{
+      s.updatedProduct[name]=value;
+      return s;
+    })
+  }
   onDeleteProduct = (id) => {
     // localStorage.setItem('deleted-product-id',id);
     // this.setState({show:true})
@@ -86,7 +100,17 @@ export default class ListProduct extends React.Component {
   };
 
   onUpdateProduct = (p) => {
-    localStorage.setItem("updated-product", JSON.stringify(p));
+    this.setState({ updatedProduct: p });
+  };
+  _updateProduct = (e) => {
+    e.preventDefault();
+
+    axios.put('/products/'+this.state.updatedProduct.id+'.json',this.state.updatedProduct).then((data)=>{
+      this._getAllProducts();
+      swal("Gotcha!", "updated successfully!", "success");
+      
+    })
+
   };
 
   componentDidMount = () => {
