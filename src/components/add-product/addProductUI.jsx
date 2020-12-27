@@ -1,6 +1,6 @@
 export default function AddProductUI(props){
     return (
-        <form>
+        <form onSubmit={props.onAddProduct}>
         <div className="mb-3">
           <label htmlFor="t" className="form-label">
             Title
@@ -70,7 +70,6 @@ export default function AddProductUI(props){
         <button
           type="submit"
           className="btn btn-success mt-3"
-          onClick={props.onAddProduct}
         >
           Add Product
         </button>
