@@ -50,13 +50,13 @@ export default function Header() {
             className="btn btn-outline-success my-2 my-sm-0 mr-2"
             type="submit"
           >
-            <i className="fa fa-lock"></i> Login
+            <i className="fa fa-lock"></i> Signin
           </button>
           <button
             className="btn btn-outline-success my-2 my-sm-0"
             type="submit"
           >
-            <i className="fa fa-user"></i> Register
+            <i className="fa fa-user"></i> Signup
           </button>
         </form>
       </div>
