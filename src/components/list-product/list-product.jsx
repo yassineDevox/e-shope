@@ -1,31 +1,24 @@
 import React from "react";
+import axios from "./../../utils/axios";
 
 export default class ListProduct extends React.Component {
   constructor() {
     super();
     this.state = {
-      products: [
-        {
-          id: 1,
-          img: "https://placekitten.com/100",
-          title: "title 1",
-          desc: "description 1 for the product number 1",
-        },
-        {
-          id: 2,
-          img: "https://placekitten.com/100",
-          title: "title 2",
-          desc: "description 2 for the product number 2",
-        },
-        {
-          id: 3,
-          img: "https://placekitten.com/100",
-          title: "title 3",
-          desc: "description 3 for the product number 3",
-        },
-      ],
+      products: [],
     };
   }
+
+  componentDidMount() {
+    axios.get("/products.json").then((response) => {
+      let fetchData = [];
+      Object.keys(response.data).map((key) => {
+        fetchData.push({ ...response.data[key], id: key });
+      });
+      this.setState({products:fetchData})
+    });
+  }
+
   render() {
     return (
       <section className="col-8">
@@ -46,7 +39,7 @@ export default class ListProduct extends React.Component {
                 <tr>
                   <td>{p.id}</td>
                   <td>
-                    <img src={p.img} />
+                    <img height="100" src={p.img} />
                   </td>
 
                   <td>{p.title}</td>
