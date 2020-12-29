@@ -11,11 +11,19 @@ export default class ListProduct extends React.Component {
 
   componentDidMount() {
     axios.get("/products.json").then((response) => {
-      let fetchData = [];
-      Object.keys(response.data).map((key) => {
-        fetchData.push({ ...response.data[key], id: key });
-      });
-      this.setState({products:fetchData})
+
+      if(response.data!=null){
+        
+        let fetchData = [];
+        
+        Object.keys(response.data).map((key) => {
+          fetchData.push({ ...response.data[key], id: key });
+        });
+
+        this.setState({ products: fetchData });
+
+      }
+
     });
   }
 
@@ -34,7 +42,11 @@ export default class ListProduct extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.products.map((p) => {
+            {
+              this.state.products.length == 0 ? 
+              <tr><td className='text-center' colSpan='6'>La liste des produits est vide 😥 !!</td></tr>
+              :
+            this.state.products.map((p) => {
               return (
                 <tr>
                   <td>{p.id}</td>
@@ -63,6 +75,7 @@ export default class ListProduct extends React.Component {
                       title="Delete"
                     >
                       <button
+                        onClick={() => this.handleDelete(p.id)}
                         className="btn btn-danger btn-xs"
                         data-title="Delete"
                         data-toggle="modal"
@@ -80,4 +93,20 @@ export default class ListProduct extends React.Component {
       </section>
     );
   }
+
+  //------------------EVENTS HANDLERS-------------
+  handleDelete = (productID) => {
+    let confirmDelete = window.confirm("Are You Sure ?");
+    if (confirmDelete == true) {
+      axios.delete(`/products/${productID}.json`).then((data) => {
+        
+        //filtri ga3 les produits li andhom hade lcondition s7i7a ()
+        let nvList=this.state.products.filter((p) => p.id != productID)
+        
+        this.setState({
+          products: nvList,
+        });
+      });
+    }
+  };
 }
