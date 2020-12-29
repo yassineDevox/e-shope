@@ -11,11 +11,31 @@ export default class ListProduct extends React.Component {
 
   componentDidMount() {
     axios.get("/products.json").then((response) => {
-      let fetchData = [];
-      Object.keys(response.data).map((key) => {
-        fetchData.push({ ...response.data[key], id: key });
-      });
-      this.setState({products:fetchData})
+     
+      //jibliya les keys dyale lobjet data
+      let keys = Object.keys(response.data)
+      //declarer tableau khawi bach n3amro man ba3d be les objets product
+      let fetchedData = [];
+
+      //parcouri liya les keys bach n acceder l value dyal properties dyal lobjet data
+      keys.map(k=>
+        {
+          //declarer wahade produit khawi bach n3Amro be les valeurs 
+          let product = {
+            id:k,
+            title:response.data[k].title,
+            desc:response.data[k].desc,
+            img:response.data[k].img
+          }
+          //ajouter hadak lproduit ltableau fetchedData
+          fetchedData.push(product);
+
+        }
+      )
+        //tableau 3andi nadi khasni nakhwih fe state products bach it2aficha fe html 
+      this.setState({products:fetchedData})  
+
+      console.log(fetchedData); 
     });
   }
 
@@ -34,7 +54,8 @@ export default class ListProduct extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.products.map((p) => {
+            {
+            this.state.products.map((p) => {
               return (
                 <tr>
                   <td>{p.id}</td>
