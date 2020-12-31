@@ -1,16 +1,11 @@
-
-import ProductADD from "./components/add-product/addProduct";
-import ListProduct from "./components/list-product/list-product";
 import Header from './shared/Header/header'; 
+import RouterApp from './routes/route';
 
 function App() {
   return (
     <div>
       <Header />
-      <main className="row p-5">
-        <ProductADD />
-        <ListProduct />
-      </main>
+      <RouterApp />
       <footer className='bg-dark p-3 text-center text-light'> @Copy-right Yassine Devox 2020</footer>
     </div>
   );
