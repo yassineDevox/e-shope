@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./../../utils/axios";
+import Modal from "./modal";
 
 export default class ListProduct extends React.Component {
   constructor() {
@@ -76,8 +77,6 @@ export default class ListProduct extends React.Component {
                           data-title="Edit"
                           data-toggle="modal"
                           data-target="#edit"
-                          data-toggle="modal"
-                          data-target="#exampleModal"
                           onClick={() => this.handleEdit(p)}
                         >
                           <i className="fa fa-edit"></i>
@@ -108,120 +107,13 @@ export default class ListProduct extends React.Component {
           </tbody>
         </table>
         {/* modal-edit */}
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex={-1}
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  Edit Product
-                </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                {/* add form for update product */}
-                <form onSubmit={this.onAddProduct} className="flex-grow-1">
-                  <div className="mb-3 text-center">
-                    <label htmlFor="t" className="form-label">
-                      Title
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="t"
-                      onChange={this.onChangeInput}
-                      name="title"
-                      value={this.state.title}
-                    />
-                    {/* etape deux  render la className dynamique en se basant sur la valeur du variable error */}
-                    <small
-                      className={
-                        this.state.errorTitle == true
-                          ? "text-danger d-block"
-                          : "d-none"
-                      }
-                    >
-                      Title is required !!
-                    </small>
-                  </div>
-
-                  <div className="mb-3 text-center">
-                    <label htmlFor="d" className="form-label">
-                      Description
-                    </label>
-                    <textarea
-                      className="form-control"
-                      id="d"
-                      onChange={this.onChangeInput}
-                      name="desc"
-                      value={this.state.desc}
-                    ></textarea>
-
-                    <small
-                      className={
-                        this.state.errorDesc == true
-                          ? "text-danger d-block"
-                          : "d-none"
-                      }
-                    >
-                      Description is required !!
-                    </small>
-                  </div>
-
-                  <div className="text-center">
-                    <label htmlFor="i" className="form-label">
-                      Image
-                    </label>
-                    <div className="input-group ">
-                      <span className="input-group-text">URL:/</span>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="i"
-                        onChange={this.onChangeInput}
-                        name="img"
-                        value={this.state.img}
-                      />
-                    </div>
-                    <small
-                      className={
-                        this.state.errorImg == true
-                          ? "text-danger d-block"
-                          : "d-none"
-                      }
-                    >
-                      Image is required !!
-                    </small>
-                  </div>
-                </form>
-              </div>
-              <div className="modal-footer">
+       <Modal title={this.state.title} id='edit'>
+              <FormProduct
                 
-                <button
-                  data-dismiss="modal"
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={this.onUpdateProduct}
-                >
-                  Edit <i className="fa fa-edit"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+              />
+       </Modal>
+            
+         
       </section>
     );
   }

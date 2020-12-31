@@ -1,6 +1,7 @@
-import Header from "./components/shared/Header/header";
+
 import ProductADD from "./components/add-product/addProduct";
 import ListProduct from "./components/list-product/list-product";
+import Header from './shared/Header/header'; 
 
 function App() {
   return (
