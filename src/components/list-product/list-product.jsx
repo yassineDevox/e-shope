@@ -109,7 +109,7 @@ export default class ListProduct extends React.Component {
         {/* modal-edit */}
        <Modal title={this.state.title} id='edit'>
               <FormProduct
-                
+
               />
        </Modal>
             
