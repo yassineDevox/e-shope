@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "./../../utils/axios";
 import Modal from "./modal";
+import FormProduct from './form-product';
+import RowProduct from "./row-product";
 
 export default class ListProduct extends React.Component {
   constructor() {
@@ -58,60 +60,29 @@ export default class ListProduct extends React.Component {
             ) : (
               this.state.products.map((p) => {
                 return (
-                  <tr key={p.id}>
-                    <td>{p.id}</td>
-                    <td>
-                      <img height="100" src={p.img} />
-                    </td>
-
-                    <td>{p.title}</td>
-                    <td>{p.desc}</td>
-                    <td>
-                      <p
-                        data-placement="top"
-                        data-toggle="tooltip"
-                        title="Edit"
-                      >
-                        <button
-                          className="btn btn-primary btn-xs"
-                          data-title="Edit"
-                          data-toggle="modal"
-                          data-target="#edit"
-                          onClick={() => this.handleEdit(p)}
-                        >
-                          <i className="fa fa-edit"></i>
-                        </button>
-                      </p>
-                    </td>
-                    <td>
-                      <p
-                        data-placement="top"
-                        data-toggle="tooltip"
-                        title="Delete"
-                      >
-                        <button
-                          onClick={() => this.handleDelete(p.id)}
-                          className="btn btn-danger btn-xs"
-                          data-title="Delete"
-                          data-toggle="modal"
-                          data-target="#delete"
-                        >
-                          <i className="fa fa-trash"></i>
-                        </button>
-                      </p>
-                    </td>
-                  </tr>
+                  <RowProduct 
+                  hey={p.id}
+                    title={p.title}
+                    desc={p.desc}
+                    img={p.img}
+                    handleDelete={this.handleDelete}
+                    handleEdit={this.handleEdit}
+                  />            
                 );
               })
             )}
           </tbody>
         </table>
         {/* modal-edit */}
-       <Modal title={this.state.title} id='edit'>
-              <FormProduct
-
+       <Modal title={this.state.title} id='edit' handleSubmit={this.onUpdateProduct}>
+              <FormProduct 
+                title={this.state.title}
+                img={this.state.img}
+                desc={this.state.desc}
+                handleInputChange={this.onChangeInput}
               />
        </Modal>
+       
             
          
       </section>

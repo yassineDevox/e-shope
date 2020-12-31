@@ -35,7 +35,7 @@ export default function Modal(props){
                 data-dismiss="modal"
                 type="button"
                 className="btn btn-primary"
-                // onClick={this.onUpdateProduct}
+                onClick={this.handleSubmit}
               >
                 Edit <i className="fa fa-edit"></i>
               </button>
