@@ -1,8 +1,10 @@
 import "./Header.css";
+import { Link, BrowserRouter as Router } from "react-router-dom";
 
 export default function Header() {
 
   return (
+    <Router>
     <nav className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand" href="#">
        E-Shope
@@ -32,11 +34,13 @@ export default function Header() {
         <ul className="navbar-nav ">
         
           <li className="nav-item active">
-            <a className="nav-link" href="#">
+          
+            <a className="nav-link" href="javascript:void">
               <i className="fa fa-home">
               </i>
-              Home
+               <Link to='/home'> Home</Link>
             </a>
+            
           </li>
         </ul>
         <form className="form-inline my-2 my-lg-0">
@@ -61,5 +65,6 @@ export default function Header() {
         </form>
       </div>
     </nav>
+    </Router>
   );
 }

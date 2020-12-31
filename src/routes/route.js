@@ -1,14 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from './../pages/home/home'
-import ProductDetails from './../pages/product-details/product-details'
-import Dashboard from './../pages/dashboard/dashboard'
+import Home from "./../pages/home/home";
+import ProductDetails from "./../pages/product-details/product-details";
+import Dashboard from "./../pages/dashboard/dashboard";
+import Header from "../shared/Header/header";
+import Footer from "../shared/footer/footer";
 
 export default function RouterApp() {
   return (
     <Router>
+      <Header />
       <Switch>
-        <Route path="/home">
+        <Route exact path="/home">
           <Home />
         </Route>
         <Route path="/product-details/:id">
@@ -17,10 +20,11 @@ export default function RouterApp() {
         <Route path="/dashboard">
           <Dashboard />
         </Route>
-        <Route path="*">
-          <h1>ERROR 404 DEFAULT </h1>
+        <Route path="/dashboard">
+          <Dashboard />
         </Route>
       </Switch>
+      <Footer />
     </Router>
   );
 }
