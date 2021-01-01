@@ -1,5 +1,5 @@
 home-page setup:
-    ❍ create the product-card component
+    ✔ create the product-card component @started(21-01-01 22:26) @done(21-01-01 22:31) @lasted(5m55s)
     ❍ change func to class component (home)
     ❍ state with list product 
     ❍ ondidmount get the list from firebase using axios 
