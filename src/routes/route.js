@@ -12,13 +12,15 @@ export default function RouterApp() {
   return (
     <Router>
       <Header />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/admin" component={Dashboard} />
-        <Route path="/shopping-card" component={ShoppingCard} />
-        <Route path="/product-details/:id" component={ProductDetails} />
-        <Route path='*' component={Error404}/>
-      </Switch>
+      <main className="p-5">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/admin" component={Dashboard} />
+          <Route path="/shopping-card" component={ShoppingCard} />
+          <Route path="/product-details/:id" component={ProductDetails} />
+          <Route path="*" component={Error404} />
+        </Switch>
+      </main>
       <Footer />
     </Router>
   );

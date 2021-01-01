@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function CardProduct(props) {
     return (
       <div className="card" style={{ width: "15rem" }}>
@@ -8,7 +10,7 @@ export default function CardProduct(props) {
               {props.desc}
           </p>
           <a href="#" className="btn btn-warning text-uppercase">
-            add to cart 
+            <Link to={`/product-details/${props.id}`}> add to cart </Link> 
           </a>
         </div>
       </div>
