@@ -1,0 +1,6 @@
+shopping-card page : 
+    ❍ design setup : display a list of desired product  
+    ❍ choosed-product-component that contains img title desc and quantity 
+    ❍ choosed-product-component with a button-toggle(remove || add) <>(180°) 
+    ❍ choosed-product-component list of it 
+     

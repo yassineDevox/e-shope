@@ -1,0 +1,8 @@
+home-page setup:
+    ❍ create the product-card component
+    ❍ change func to class component (home)
+    ❍ state with list product 
+    ❍ ondidmount get the list from firebase using axios 
+    ❍ add a link tag to product 's more details button that leads to product-details/:id
+    ❍ filter search for product by title desc 
+    

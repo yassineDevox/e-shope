@@ -1,0 +1,7 @@
+product-details page setup:
+    ❍ get the id from the link 
+    ❍ make a get request to firebase to get product infos 
+    ❍ add a design for this page that contains 
+    ❍ infos-product section design setup
+    ❍ order now button with additionnal infos
+    ❍ maybe it will be a list of recomendation product 
