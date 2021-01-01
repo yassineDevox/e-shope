@@ -1,6 +1,6 @@
 import React from "react";
-import AddProductUI from "./addProductUI";
 import axios from "../../utils/axios";
+import FormProduct from "../../shared/form-product";
 
 
 export default class ProductADD extends React.Component {
@@ -29,16 +29,17 @@ export default class ProductADD extends React.Component {
     return (
     <section className='col-4 border-right d-flex align-items-center'>
       
-        <AddProductUI
-        title={this.state.product.title}
-        desc={this.state.product.desc}
-        img={this.state.product.img}
-        errorTitle={this.state.error.title}
-        errorImg={this.state.error.img}
-        errorDesc={this.state.error.desc}
-        onChangeInput={this.onChangeInput}
-        onAddProduct={this.onAddProduct}
-      />
+        <FormProduct
+            title={this.state.product.title}
+            desc={this.state.product.desc}
+            img={this.state.product.img}
+            errorTitle={this.state.error.title}
+            errorImg={this.state.error.img}
+            errorDesc={this.state.error.desc}
+            handleInputChange={this.onChangeInput}
+            handleSubmit={this.onAddProduct}
+            save={true}
+        />
       
     </section>
     );
@@ -79,7 +80,7 @@ export default class ProductADD extends React.Component {
     
   };
 
-  //---------PRIVATE FUNCTIONS 🛑----------- 
+  //---------PRIVATE FUNCTIONS dima smiat tatbda be _ (for best practices)🛑----------- 
   _sendData = () => {
     //Collect data using spread operator
     const Data = { ...this.state.product };
@@ -110,8 +111,4 @@ export default class ProductADD extends React.Component {
     return err;
   };
 
-  //life cycle hooks react
-  componentDidMount = () => {
-  };
-  componentDidUpdate = () => {};
 }
