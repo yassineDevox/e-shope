@@ -1,13 +1,21 @@
 import "./Header.css";
-import { Link, BrowserRouter as Router } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 export default function Header() {
+  const [shopping_card,setShopingCard] = useState(false);
+  const [admin,setAdmin] = useState(false);
+  const [home,setHome] = useState(false);
+  const setAll = (shopping_card,admin,home)=>{
+    setShopingCard(shopping_card)
+    setAdmin(admin)
+    setHome(home)
+  }
 
   return (
-    <Router>
     <nav className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand" href="#">
-       E-Shope
+        E-Shope
       </a>
       <button
         className="navbar-toggler"
@@ -22,34 +30,44 @@ export default function Header() {
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <i class="fa fa-shopping-basket">
-                <span className="badge badge-danger">0</span>
-              </i>
-              Shoping cart
-            </a>
-          </li>
+          <NavLink
+            to="/shopping-card"
+            isActive={(match)=> {if(match && match.isExact)setAll(true,false,false)}}
+          >
+            <li className={`nav-item ${shopping_card == true ? " active" : ""}`}>
+              <a className="nav-link" href="#">
+                <i class="fa fa-shopping-basket">
+                  <span className="badge badge-danger">0</span>
+                </i>
+              </a>
+            </li>
+          </NavLink>
         </ul>
+        <input
+          className="form-control mr-sm-2 w-50"
+          type="text"
+          placeholder="Search"
+          aria-label="Search"
+        />
         <ul className="navbar-nav ">
-        
-          <li className="nav-item active">
-          
-            <a className="nav-link" href="javascript:void">
-              <i className="fa fa-home">
-              </i>
-               <Link to='/home'> Home</Link>
-            </a>
-            
-          </li>
+          <NavLink to="/" 
+            isActive={(match) => {if(match && match.isExact)setAll(false,false,true)}}>
+            <li className={`nav-item ${home ? " active" : ""}`}>
+              <a className="nav-link">
+                <i className="fa fa-home"></i>
+              </a>
+            </li>
+          </NavLink>
+          <NavLink to="/admin" 
+          isActive={(match) => {if(match && match.isExact)setAll(false,true,false)}}>
+            <li className={`nav-item ${admin ? " active" : ""}`}>
+              <a className="nav-link">
+                <i className="fa fa-pie-chart"></i>
+              </a>
+            </li>
+          </NavLink>
         </ul>
         <form className="form-inline my-2 my-lg-0">
-          <input
-            className="form-control mr-sm-2"
-            type="text"
-            placeholder="Search"
-            aria-label="Search"
-          />
           <button
             className="btn btn-outline-success my-2 my-sm-0 mr-2"
             type="submit"
@@ -65,6 +83,5 @@ export default function Header() {
         </form>
       </div>
     </nav>
-    </Router>
   );
 }
