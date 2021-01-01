@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <nav className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand text-warning" href="#">
         E-Shope
       </a>
       <button
@@ -69,13 +69,13 @@ export default function Header() {
         </ul>
         <form className="form-inline my-2 my-lg-0">
           <button
-            className="btn btn-outline-success my-2 my-sm-0 mr-2"
+            className="btn btn-outline-warning my-2 my-sm-0 mr-2"
             type="submit"
           >
             <i className="fa fa-lock"></i> Signin
           </button>
           <button
-            className="btn btn-outline-success my-2 my-sm-0"
+            className="btn btn-outline-warning my-2 my-sm-0"
             type="submit"
           >
             <i className="fa fa-user"></i> Signup
