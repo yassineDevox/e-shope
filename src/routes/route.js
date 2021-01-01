@@ -11,7 +11,7 @@ export default function RouterApp() {
     <Router>
       <Header />
       <Switch>
-        <Route exact path="/home">
+        <Route path="/home">
           <Home />
         </Route>
         <Route path="/product-details/:id">
