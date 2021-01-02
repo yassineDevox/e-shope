@@ -1,7 +1,13 @@
+import ProductADD from './../../components/add-product/addProduct'
+import ListProduct from './../../components/list-product/list-product'
+
 export default function Dashboard(){
     return (
-        <h1>
-            This page will contains the crud part of product to manage product 📋 !!
-        </h1>
+        <main className='row'>
+            
+            <ProductADD />
+            <ListProduct />
+
+        </main>
     )
 }

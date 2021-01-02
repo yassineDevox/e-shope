@@ -36,7 +36,7 @@ export default function Modal(props) {
               data-dismiss="modal"
               type="button"
               className="btn btn-primary"
-              onClick={this.handleSubmit}
+              onClick={props.handleSubmit}
             >
               {props.submitBtn} <i className={`fa fa-${props.submitIcon}`}></i>
             </button>

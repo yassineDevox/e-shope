@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "./../../utils/axios";
-import Modal from "./modal";
-import FormProduct from './form-product';
-import RowProduct from "./row-product";
+import FormProduct from "../../shared/form-product";
+import Modal from './../../shared/modal';
+import RowProduct from './../../shared/row-product';
+import ProductContext from "../../shared/context/product-context";
 
 export default class ListProduct extends React.Component {
   constructor() {
@@ -54,8 +55,8 @@ export default class ListProduct extends React.Component {
                     title={p.title}
                     desc={p.desc}
                     img={p.img}
-                    handleDelete={this.handleDelete}
-                    handleEdit={this.handleEdit}
+                    handleDelete={()=> this.handleDelete(p.id)}
+                    handleEdit={()=> this.handleEdit(p)}
                   />            
                 );
               })
@@ -63,8 +64,8 @@ export default class ListProduct extends React.Component {
           </tbody>
         </table>
         {/* modal-edit */}
-       <Modal title={this.state.title} id='edit' handleSubmit={this.onUpdateProduct}>
-              <FormProduct 
+       <Modal title={this.state.title} id='edit' handleSubmit={this.onUpdateProduct} submitBtn='Edit' submitIcon='edit'>
+              <FormProduct  
                 title={this.state.title}
                 img={this.state.img}
                 desc={this.state.desc}
@@ -141,3 +142,5 @@ export default class ListProduct extends React.Component {
     else this.setState({ [KeyError]: false });
   };
 }
+
+ListProduct.contextType = ProductContext;
