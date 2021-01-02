@@ -26,7 +26,7 @@ export class ProductProvider extends React.Component {
   filter = (query) => {
     if (query != "")
       this.setState({
-        products: this.state.products.filter((p) =>
+        products: this.state.backupList.filter((p) =>
           p.title.toLowerCase().includes(query)
         ),
       });
