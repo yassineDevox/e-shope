@@ -9,7 +9,7 @@ export default function CardProduct(props) {
           <p className="card-text">
               {props.desc}
           </p>
-          <a href="#" className="btn btn-warning text-uppercase">
+          <a href="javascript:void" className="btn btn-warning text-uppercase">
             <Link to={`/product-details/${props.id}`}> add to cart </Link> 
           </a>
         </div>

@@ -4,5 +4,6 @@ home-page setup:
     ✔ state with list product @started(21-01-01 23:44) @done(21-01-01 23:45) @lasted(1m8s)
     ✔ ondidmount get the list from firebase using axios @started(21-01-01 23:45) @done(21-01-02 00:33) @lasted(48m37s)
     ✔ add a link tag to product 's more details button that leads to product-details/:id @done(21-01-02 00:33)
-    ❍ filter search for product by title desc 
+    ✔ setup context api  @started(21-01-02 01:43) @done(21-01-02 02:21) @lasted(38m18s)
+    ❍ filter search for product by title desc
     

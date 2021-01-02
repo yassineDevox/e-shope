@@ -7,10 +7,12 @@ import Header from "../shared/Header/header";
 import Footer from "../shared/footer/footer";
 import Error404 from "../pages/error/404";
 import ShoppingCard from "../pages/shoping-card/shopping-card";
+import { ProductProvider } from "../shared/context/product-context";
 
 export default function RouterApp() {
   return (
     <Router>
+      <ProductProvider>
       <Header />
       <main className="p-5">
         <Switch>
@@ -22,6 +24,7 @@ export default function RouterApp() {
         </Switch>
       </main>
       <Footer />
+      </ProductProvider>
     </Router>
   );
 }

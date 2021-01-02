@@ -8,7 +8,6 @@ export default class ListProduct extends React.Component {
   constructor() {
     super();
     this.state = {
-      products: [],
       id: "",
       title: "",
       desc: "",
@@ -24,17 +23,7 @@ export default class ListProduct extends React.Component {
   }
 
   getAllData = ()=>{
-    axios.get("/products.json").then((response) => {
-      if (response.data != null) {
-        let fetchData = [];
-
-        Object.keys(response.data).map((key) => {
-          fetchData.push({ ...response.data[key], id: key });
-        });
-
-        this.setState({ products: fetchData });
-      }
-    });
+   this.context.getAll();
   }
   render() {
     return (
@@ -51,14 +40,14 @@ export default class ListProduct extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.products.length == 0 ? (
+            {this.context.products.length == 0 ? (
               <tr>
                 <td className="text-center" colSpan="6">
                   La liste des produits est vide 😥 !!
                 </td>
               </tr>
             ) : (
-              this.state.products.map((p) => {
+              this.context.products.map((p) => {
                 return (
                   <RowProduct 
                   hey={p.id}
@@ -97,7 +86,7 @@ export default class ListProduct extends React.Component {
         //filtri ga3 les produits li andhom hade lcondition s7i7a ()
         let nvList = this.state.products.filter((p) => p.id != productID);
 
-        this.setState({
+        this.context.setState({
           products: nvList,
         });
       });
