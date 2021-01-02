@@ -36,16 +36,39 @@ export class ProductProvider extends React.Component {
       );
   };
 
+  save = (Data) => {
+    // console.log('sending data')
+    // send the data to the server using axios
+    axios.post("/products.json", Data).then((response) => {
+      console.log(response);
+      let newList = this.state.products;
+      newList.push({...Data,id:response.data.name})
+      this.setState({products:newList})
+    });
+  };
+
+  remove = (productID) => {
+    axios.delete(`/products/${productID}.json`).then((data) => {
+      //filtri ga3 les produits li andhom hade lcondition s7i7a ()
+      let nvList = this.state.products.filter((p) => p.id != productID);
+      this.setState({
+        products: nvList,
+      });
+    });
+  };
+
   render() {
     const { products } = this.state;
-    const { filter, getAll } = this;
+    const { filter, getAll, save , remove } = this;
 
     return (
       <ProductContext.Provider
         value={{
           products,
           getAll,
-          filter
+          filter,
+          save,
+          remove
         }}
       >
         {this.props.children}

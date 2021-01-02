@@ -78,7 +78,7 @@ export default function FormProduct (props){
        <button
           hidden={!props.save}
           type="submit"
-          className="btn btn-success mt-3 text-uppercase"
+          className="btn btn-warning mt-3 text-uppercase"
         >
           add <i className="fa fa-plus"></i>
         </button>

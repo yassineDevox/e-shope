@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "../../utils/axios";
 import FormProduct from "../../shared/form-product";
+import ProductContext from "../../shared/context/product-context";
 
 
 export default class ProductADD extends React.Component {
@@ -74,7 +75,12 @@ export default class ProductADD extends React.Component {
 
     if(!this.ERROR) {
       this._sendData();
-      event.target.reset();
+      this.setState((s)=>{
+        s.product.title = ''
+        s.product.desc = ''
+        s.product.img = ''
+        return s
+      })
     }
 
     
@@ -84,12 +90,8 @@ export default class ProductADD extends React.Component {
   _sendData = () => {
     //Collect data using spread operator
     const Data = { ...this.state.product };
-
-    // console.log('sending data')
-    // send the data to the server using axios
-    axios.post("/products.json", Data).then((data) => {
-      console.log(data);
-    });
+    //save the product to the context product api to be directly added to the list without ref page 
+    this.context.save(Data);
   };
 
   _validateForm = (error)=>{
@@ -112,3 +114,5 @@ export default class ProductADD extends React.Component {
   };
 
 }
+
+ProductADD.contextType = ProductContext;

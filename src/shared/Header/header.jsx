@@ -67,7 +67,7 @@ export default function Header() {
           </NavLink>
         </ul>
         <input
-          className="form-control mr-sm-2 w-50"
+          className="form-control mx-auto w-50"
           type="text"
           placeholder="Search"
           aria-label="Search"
@@ -104,14 +104,9 @@ export default function Header() {
             className="btn btn-outline-warning my-2 my-sm-0 mr-2"
             type="submit"
           >
-            <i className="fa fa-lock"></i> Signin
+             LOGIN <i className="fa fa-lock"></i>
           </button>
-          <button
-            className="btn btn-outline-warning my-2 my-sm-0"
-            type="submit"
-          >
-            <i className="fa fa-user"></i> Signup
-          </button>
+        
         </form>
       </div>
     </nav>

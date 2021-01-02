@@ -28,7 +28,7 @@ export default class ListProduct extends React.Component {
   }
   render() {
     return (
-      <section className="col-8">
+      <section style={{height:'73vh',overflowY:'scroll'}} className="col-8">
         <table id="mytable" className="table table-bordred table-striped">
           <thead>
             <tr>
@@ -83,16 +83,9 @@ export default class ListProduct extends React.Component {
   handleDelete = (productID) => {
     let confirmDelete = window.confirm("Are You Sure ?");
     if (confirmDelete == true) {
-      axios.delete(`/products/${productID}.json`).then((data) => {
-        //filtri ga3 les produits li andhom hade lcondition s7i7a ()
-        let nvList = this.state.products.filter((p) => p.id != productID);
-
-        this.context.setState({
-          products: nvList,
-        });
-      });
+     this.context.remove(productID)
     }
-  };
+  };  
 
   handleEdit = (product) => {
     this.setState({
