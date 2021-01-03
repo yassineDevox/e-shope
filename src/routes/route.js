@@ -14,7 +14,7 @@ export default function RouterApp() {
     <Router>
       <ProductProvider>
       <Header />
-      <main className="p-5">
+      <main className="p-1">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/admin" component={Dashboard} />
@@ -23,6 +23,7 @@ export default function RouterApp() {
           <Route path="*" component={Error404} />
         </Switch>
       </main>
+      <div style={{clear:"both"}}></div>
       <Footer />
       </ProductProvider>
     </Router>

@@ -2,6 +2,7 @@ import "./Header.css";
 import { NavLink } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import ProductContext from "../context/product-context";
+import Modal from "../modal";
 
 export default function Header() {
   const [shopping_card, setShopingCard] = useState(false);
@@ -69,7 +70,7 @@ export default function Header() {
         <input
           className="form-control mx-auto w-50"
           type="text"
-          placeholder="Search"
+          placeholder="🟠 Search for your product by title"
           aria-label="Search"
           onChange={filterListProduct}
         />
@@ -103,12 +104,18 @@ export default function Header() {
           <button
             className="btn btn-outline-warning my-2 my-sm-0 mr-2"
             type="submit"
+            data-toggle='modal'
+            data-target='login-register'
           >
              LOGIN <i className="fa fa-lock"></i>
           </button>
-        
         </form>
       </div>
+
+      <Modal id='login-register' title='Signin'>
+        
+      </Modal>
+
     </nav>
   );
 }
