@@ -1,0 +1,4 @@
+setup auth system :
+    ✔ fire base configuration @done(21-01-03 15:25)
+    [] create the auth context with signup and signin function @started(21-01-03 15:00)
+    ✔ create login modal component @started(21-01-03 15:30) @done(21-01-03 16:05) @lasted(35m47s)

@@ -8,9 +8,8 @@ export default function Header() {
   const [shopping_card, setShopingCard] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [home, setHome] = useState(false);
-  
-  const [keySearch, setKeySearch] = useState(false);
 
+  const [keySearch, setKeySearch] = useState(false);
 
   const setAll = (shopping_card, admin, home) => {
     setShopingCard(shopping_card);
@@ -18,25 +17,25 @@ export default function Header() {
     setHome(home);
   };
 
-
   const { filter } = useContext(ProductContext);
 
   // console.log(context.products);
 
   const filterListProduct = (e) => {
-   let  query  = e.target.value.toLowerCase();
+    let query = e.target.value.toLowerCase();
     setKeySearch(query);
     filter(query);
-  }
+  };
 
-  
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <nav className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand text-warning" href="#">
-        E-Shope 
-      </a> 
+        E-Shope
+      </a>
       <button
         className="navbar-toggler"
         type="button"
@@ -100,22 +99,48 @@ export default function Header() {
             </li>
           </NavLink>
         </ul>
-        <form className="form-inline my-2 my-lg-0">
+        <form
+          className="form-inline my-2 my-lg-0"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <button
             className="btn btn-outline-warning my-2 my-sm-0 mr-2"
-            type="submit"
-            data-toggle='modal'
-            data-target='login-register'
+            data-toggle="modal"
+            data-target="#login-register"
           >
-             LOGIN <i className="fa fa-lock"></i>
+            LOGIN <i className="fa fa-lock"></i>
           </button>
         </form>
       </div>
 
-      <Modal id='login-register' title='Signin'>
+      <Modal id="login-register" title="Signin" submitBtn='Connexion' submitIcon='reply'>
+        <form onSubmit={handleSubmit}>
         
+        <div className="form-group d-flex align-items-center justify-content-around">
+            <label className="border pl-3 pr-3 pt-1 pb-2 mt-2" htmlFor="em">
+              <i className="fa fa-user"></i>
+            </label>
+            <input
+              id="em"
+              type="text"
+              className="form-control ml-2"
+              placeholder="Enter Your Email address"
+            />
+          </div>  
+          <div className="form-group d-flex align-items-center justify-content-around">
+            <label className="border pl-3 pr-3 pt-1 pb-2 mt-2" htmlFor="em">
+              <i className="fa fa-lock"></i>
+            </label>
+            <input
+              id="em"
+              type="password"
+              className="form-control ml-2"
+              placeholder="Enter Your Password "
+            />
+          </div>
+        
+        </form>
       </Modal>
-
     </nav>
   );
 }

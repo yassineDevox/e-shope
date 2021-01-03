@@ -35,7 +35,7 @@ export default function Modal(props) {
             <button
               data-dismiss="modal"
               type="button"
-              className="btn btn-primary"
+              className="btn btn-warning"
               onClick={props.handleSubmit}
             >
               {props.submitBtn} <i className={`fa fa-${props.submitIcon}`}></i>
@@ -50,4 +50,6 @@ export default function Modal(props) {
 Modal.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  submitBtn:PropTypes.string.isRequired,
+  submitIcon:PropTypes.string.isRequired
 };
