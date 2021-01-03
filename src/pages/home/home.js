@@ -18,7 +18,7 @@ export default class Home extends React.Component {
           {this.context.products.length == 0 ? (
             <span> loading ... 🥰</span>
           ) : (
-            <h2 className='p-4'> <span style={titleStyle} className='border-bottom border-warning text-uppercase'>shope</span> 🛒</h2>
+            <h2 className='pt-2'> <span style={titleStyle} className='border-bottom border-warning text-uppercase'>shope</span> 🛒</h2>
           )}
         </div>
         <section
@@ -26,11 +26,20 @@ export default class Home extends React.Component {
           className="d-flex flex-wrap float-right p-3"
         >
           {this.context.products.map((p) => {
-            return <CardProduct key={p.id} {...p} />;
+            return <CardProduct key={p.id} {...p} handleClickBtn={()=>this.handleClickAddToCard(p.id)}/>;
           })}
         </section>
       </Fragment>
     );
+
+   
+  } 
+  handleClickAddToCard=(productId)=>{
+    
+    this.context.addToCard(productId)
+    
+
+
   }
   //------life cycle hooks ---
   componentDidMount() {

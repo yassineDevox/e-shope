@@ -1,18 +1,20 @@
-import * as firebase from "firebase";  
+import firebase from 'firebase/app'
 import 'firebase/auth';
   
 var firebaseConfig = {   
-   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,  
-   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAINE,  
-   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,  
-   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,  
-   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,  
-   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,  
-   appId: process.env.REACT_APP_FIREBASE_APP_ID  
+   apiKey: "AIzaSyBKtEoXznS3abkEeGaL18eQLy3EZpD2ZKI",
+   authDomain: "e-shop-project-8e107.firebaseapp.com",
+   databaseURL: "https://e-shop-project-8e107-default-rtdb.firebaseio.com",
+   projectId: "e-shop-project-8e107",
+   storageBucket: "e-shop-project-8e107.appspot.com",
+   messagingSenderId: "831581921068",
+   appId: "1:831581921068:web:95492c8957d790d2b35689",
+   measurementId: "G-H4ZTWYF62X"
+
 };  
 
 // Initialize Firebase  
-var app = firebase.initializeApp(firebaseConfig);  
+const app = firebase.initializeApp(firebaseConfig);  
   
 //exporter notre base de données
 export default app; 

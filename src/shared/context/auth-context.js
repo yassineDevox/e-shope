@@ -15,19 +15,21 @@ export class AuthProvider extends React.Component {
   };
   signin = () => {};
   render() {
-    const [currentUser] = this.state;
-    const [signin, signup] = this;
+    const {currentUser} = this.state;
+    const {signup} = this;
     return (
-      <AuthProvider value={(currentUser, signin, signup)}>
+      <AuthContext.Provider value={{currentUser, signup}}>
         {this.props.children}
-      </AuthProvider>
+      </AuthContext.Provider>
     );
   }
   componentDidMount() {
-    const unsubscribeMethode = auth.onAuthStateChanged((user) => {
+    this.unsubscribeMethode = auth.onAuthStateChanged((user) => {
       this.setState({ currentUser: user });
     });
-    return unsubscribeMethode;
+  }
+  componentWillUnmount(){
+    return this.unsubscribeMethode;
   }
 }
 

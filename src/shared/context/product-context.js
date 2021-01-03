@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "../../utils/axios";
+
 const ProductContext = React.createContext();
 
 export class ProductProvider extends React.Component {
@@ -8,6 +9,7 @@ export class ProductProvider extends React.Component {
     this.state = {
       products: [],
       backupList: [],
+      shoppingCard: [],
     };
   }
 
@@ -43,8 +45,8 @@ export class ProductProvider extends React.Component {
     axios.post("/products.json", Data).then((response) => {
       console.log(response);
       let newList = this.state.products;
-      newList.push({...Data,id:response.data.name})
-      this.setState({products:newList})
+      newList.push({ ...Data, id: response.data.name });
+      this.setState({ products: newList });
     });
   };
 
@@ -58,9 +60,53 @@ export class ProductProvider extends React.Component {
     });
   };
 
+  addToCard = (productId) => {
+    // alert(productId)
+    let productChoosedInTheCard = this.state.shoppingCard.find(
+      (p) => p.id == productId
+    );
+    if (!productChoosedInTheCard) {
+      let productChoosed = this.state.products.find((p) => p.id === productId);
+
+      let Data = { ...productChoosed, quantity: 0 };
+
+      axios.post("/shoppingCard.json", Data).then(() => {
+        let newShoppingCard = this.state.shoppingCard;
+        newShoppingCard.push(Data);
+        this.setState({ shoppingCard: newShoppingCard });
+      });
+    } else {
+      productChoosedInTheCard.quantity++;
+      axios
+        .put(`/shoppingCard/${productId}.json`, productChoosedInTheCard)
+        .then((data) => {
+          this.setState((prevState) => {
+            prevState.shoppingCard.forEach((p) => {
+              if (p.id == productId) p.quantity++;
+            });
+            return prevState;
+          });
+        });
+    }
+  };
+
+  getShoppingCard = () => {
+    axios.get("/shoppingCard.json").then((response) => {
+      console.log(response)
+      if (response.data) {
+        let fetchedData = [];
+        Object.keys(response.data).map((k) =>
+          fetchedData.push({ ...response.data[k], idShope: k })
+        );
+        console.log(fetchedData)
+        this.setState({ shoppingCard: fetchedData });
+      }
+    });
+  };
+
   render() {
-    const { products } = this.state;
-    const { filter, getAll, save , remove } = this;
+    const { products, shoppingCard } = this.state;
+    const { filter, getAll, save, remove, addToCard, getShoppingCard } = this;
 
     return (
       <ProductContext.Provider
@@ -69,12 +115,18 @@ export class ProductProvider extends React.Component {
           getAll,
           filter,
           save,
-          remove
+          remove,
+          addToCard,
+          shoppingCard,
+          getShoppingCard,
         }}
       >
         {this.props.children}
       </ProductContext.Provider>
     );
   }
+  componentDidMount = () => {
+    this.getShoppingCard();
+  };
 }
 export default ProductContext;

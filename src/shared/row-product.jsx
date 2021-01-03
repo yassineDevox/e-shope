@@ -16,13 +16,13 @@ export default function RowProduct(p){
             title="Edit"
           >
             <button
-              className="btn btn-primary btn-xs"
+              className="btn btn-outline-warning btn-xs"
               data-title="Edit"
               data-toggle="modal"
               data-target="#edit"
               onClick={p.handleEdit}
             >
-              <i className="fa fa-edit"></i>
+              <i className="fa fa-edit text-dark"></i>
             </button>
           </p>
         </td>
@@ -34,12 +34,12 @@ export default function RowProduct(p){
           >
             <button
               onClick={p.handleDelete}
-              className="btn btn-danger btn-xs"
+              className="btn btn-outline-warning btn-xs"
               data-title="Delete"
               data-toggle="modal"
               data-target="#delete"
             >
-              <i className="fa fa-trash"></i>
+              <i className="fa fa-trash text-dark"></i>
             </button>
           </p>
         </td>

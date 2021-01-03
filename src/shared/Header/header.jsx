@@ -20,7 +20,7 @@ export default function Header() {
     setHome(home);
   };
 
-  const { filter } = useContext(ProductContext);
+  const { filter, shoppingCard } = useContext(ProductContext);
   const { signup } = useContext(AuthContext);
 
   // console.log(context.products);
@@ -31,16 +31,18 @@ export default function Header() {
     filter(query);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    signup();
+  const handleSubmit = () => {
+    console.log(username, password);
+    signup(username, password);
   };
+
   const handleChange = (e) => {
     let value = e.target.value;
     let name = e.target.name;
     if (name == "username") setUsername(value);
     else setPassword(value);
   };
+
   return (
     <nav className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand text-warning" href="#">
@@ -70,7 +72,9 @@ export default function Header() {
             >
               <a className="nav-link" href="#">
                 <i class="fa fa-shopping-basket">
-                  <span className="badge badge-danger">0</span>
+                  <span className="badge badge-danger">
+                    {shoppingCard.length}
+                  </span>
                 </i>
               </a>
             </li>
@@ -128,8 +132,9 @@ export default function Header() {
         title="Signin-Form"
         submitBtn="Connexion"
         submitIcon="reply"
+        handleSubmit={handleSubmit}
       >
-        <form onSubmit={handleSubmit} className="col-10 mx-auto">
+        <form className="col-10 mx-auto">
           <div className="form-group d-flex align-items-center justify-content-around">
             <label className="border pl-3 pr-3 pt-1 pb-2 mt-2" htmlFor="em">
               <i className="fa fa-user "></i>
@@ -140,7 +145,7 @@ export default function Header() {
               className="form-control ml-2"
               placeholder="Enter Your Email address"
               name="username"
-              onChange={handleChage}
+              onChange={handleChange}
             />
           </div>
           <div className="form-group d-flex align-items-center justify-content-around">
@@ -153,7 +158,7 @@ export default function Header() {
               className="form-control ml-2"
               placeholder="Enter Your Password "
               name="password"
-              onChange={handleChage}
+              onChange={handleChange}
             />
           </div>
           <a style={{ cursor: "pointer" }} className="text-secondary">

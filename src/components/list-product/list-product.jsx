@@ -52,6 +52,7 @@ export default class ListProduct extends React.Component {
                 return (
                   <RowProduct 
                   hey={p.id}
+                  id={p.id}
                     title={p.title}
                     desc={p.desc}
                     img={p.img}
