@@ -2,12 +2,15 @@ import "./Header.css";
 import { NavLink } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import ProductContext from "../context/product-context";
+import AuthContext from "../context/auth-context";
 import Modal from "../modal";
 
 export default function Header() {
   const [shopping_card, setShopingCard] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [home, setHome] = useState(false);
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
 
   const [keySearch, setKeySearch] = useState(false);
 
@@ -18,6 +21,7 @@ export default function Header() {
   };
 
   const { filter } = useContext(ProductContext);
+  const { signup } = useContext(AuthContext);
 
   // console.log(context.products);
 
@@ -29,8 +33,14 @@ export default function Header() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    signup();
   };
-
+  const handleChange = (e) => {
+    let value = e.target.value;
+    let name = e.target.name;
+    if (name == "username") setUsername(value);
+    else setPassword(value);
+  };
   return (
     <nav className="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand text-warning" href="#">
@@ -113,32 +123,43 @@ export default function Header() {
         </form>
       </div>
 
-      <Modal id="login-register" title="Signin" submitBtn='Connexion' submitIcon='reply'>
-        <form onSubmit={handleSubmit}>
-        
-        <div className="form-group d-flex align-items-center justify-content-around">
+      <Modal
+        id="login-register"
+        title="Signin-Form"
+        submitBtn="Connexion"
+        submitIcon="reply"
+      >
+        <form onSubmit={handleSubmit} className="col-10 mx-auto">
+          <div className="form-group d-flex align-items-center justify-content-around">
             <label className="border pl-3 pr-3 pt-1 pb-2 mt-2" htmlFor="em">
-              <i className="fa fa-user"></i>
+              <i className="fa fa-user "></i>
             </label>
             <input
               id="em"
               type="text"
               className="form-control ml-2"
               placeholder="Enter Your Email address"
+              name="username"
+              onChange={handleChage}
             />
-          </div>  
+          </div>
           <div className="form-group d-flex align-items-center justify-content-around">
             <label className="border pl-3 pr-3 pt-1 pb-2 mt-2" htmlFor="em">
-              <i className="fa fa-lock"></i>
+              <i className="fa fa-lock "></i>
             </label>
             <input
               id="em"
               type="password"
               className="form-control ml-2"
               placeholder="Enter Your Password "
+              name="password"
+              onChange={handleChage}
             />
           </div>
-        
+          <a style={{ cursor: "pointer" }} className="text-secondary">
+            {" "}
+            Forget Password ?
+          </a>
         </form>
       </Modal>
     </nav>

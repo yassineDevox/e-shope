@@ -32,6 +32,8 @@ export default function Modal(props) {
           <div className="modal-footer">
             {/* hna jibliya lfunction li ran taba9 mani ran clicker 3la botona
               et aussi smia et licon dyale button */}
+              <a  className="btn btn-outline-warning"> Create an account ?</a>
+
             <button
               data-dismiss="modal"
               type="button"
@@ -40,6 +42,7 @@ export default function Modal(props) {
             >
               {props.submitBtn} <i className={`fa fa-${props.submitIcon}`}></i>
             </button>
+          
           </div>
         </div>
       </div>
