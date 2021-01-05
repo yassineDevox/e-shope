@@ -1,7 +1,8 @@
 global design setup :
     ✔ create the global design structure (route.js) @started(21-01-06 00:22) @done(21-01-06 00:30) @lasted(8m41s)
     ✔ create the sidebar component @started(21-01-06 00:22) @done(21-01-06 00:30) @lasted(8m42s)
-    [] create register page component 
-    [] create login page component 
-    [] crud table component (shared)
+    ✔ create register page component (pages) @done(21-01-06 00:49)
+    ✔ create login page component (pages) @done(21-01-06 00:49)
+    ✔ create admin page component (pages) @done(21-01-06 00:49)
+    [] form-ui and table-crud components (shared)
     
