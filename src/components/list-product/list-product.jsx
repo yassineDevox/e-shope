@@ -71,6 +71,7 @@ export default class ListProduct extends React.Component {
                 img={this.state.img}
                 desc={this.state.desc}
                 handleInputChange={this.onChangeInput}
+                save={false}
               />
        </Modal>
        

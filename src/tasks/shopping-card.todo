@@ -1,6 +1,6 @@
 shopping-card page : 
-    ❍ design setup : display a list of desired product @started(21-01-03 22:14)
+    ✘ design setup : display a list of desired product @started(21-01-03 22:14) @cancelled(21-01-04 11:09) @wasted(12h55m32s)
     ✔ choosed-product-component that contains img title desc and quantity @started(21-01-03 22:43) @done(21-01-03 22:43) @lasted(34s)
-    ✔ choosed-product-component with a button-toggle(remove || add) <>(180°) @done(21-01-03 22:43)
+    ✔ choosed-product-component with a button-toggle(remove || add) <> (180°) @done(21-01-03 22:43)
     ✔ choosed-product-component list of it @done(21-01-03 22:43)
     ✔ store and get the list of shopping card into firebase @done(21-01-04 00:11)

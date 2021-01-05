@@ -76,7 +76,7 @@ export default function FormProduct (props){
         <div className="text-center">
           {/* this button will be displayed in case of saving product  */}
        <button
-          hidden={!props.save}
+          hidden={props.save==false}
           type="submit"
           className="btn btn-warning mt-3 text-uppercase"
         >

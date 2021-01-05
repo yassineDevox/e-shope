@@ -39,7 +39,7 @@ export default class ProductADD extends React.Component {
             errorDesc={this.state.error.desc}
             handleInputChange={this.onChangeInput}
             handleSubmit={this.onAddProduct}
-            save
+            save={true}
         />
       
     </section>
