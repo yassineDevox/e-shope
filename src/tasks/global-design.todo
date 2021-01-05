@@ -1,0 +1,7 @@
+global design setup :
+    [] create the global design structure (route.js)
+    [] create the sidebar component
+    [] create register page component 
+    [] create login page component 
+    [] crud table component (shared)
+    
