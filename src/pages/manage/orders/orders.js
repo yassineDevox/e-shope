@@ -1,9 +1,13 @@
 import React from 'react'
+import Sidebar from '../../../components/side-bar/side-bar'
 
 export default function Orders() {
     return (
-        <div>
-            <h1>Orders</h1>
-        </div>
+        <div class="page-wrapper chiller-theme toggled">
+        <Sidebar />
+        <main className="page-content">
+            <h1> Page Orders !! </h1>
+      </main>
+    </div>
     )
 }
