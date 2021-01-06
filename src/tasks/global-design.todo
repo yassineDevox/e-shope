@@ -4,5 +4,7 @@ global design setup :
     ✔ create register page component (pages) @done(21-01-06 00:49)
     ✔ create login page component (pages) @done(21-01-06 00:49)
     ✔ create admin page component (pages) @done(21-01-06 00:49)
+    ✔ create all the pages we need (dashboard,users,products,categories,orders,shoppingCards) @started(21-01-06 01:10) @done(21-01-06 01:20) @lasted(10m52s)
     [] form-ui and table-crud components (shared)
+    
     
