@@ -1,4 +1,5 @@
 import "./side-bar.css";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
@@ -53,42 +54,42 @@ export default function Sidebar() {
             <li className="header-menu">
               <span>Manager</span>
             </li>
-            <li className="sidebar-dropdown">
+          <Link to='/admin/customers'>  <li className="sidebar-dropdown">
               <a href="#">
                 <i className="fa fa-users" />
                 <span>Users</span>
               </a>
-            </li>
-            <li className="sidebar-dropdown">
+            </li></Link>
+            <Link to='/admin/products'><li className="sidebar-dropdown">
               <a href="#">
                 <i className="fa fa-tshirt" />
                 <span>Products</span>
               </a>
-            </li>
+            </li></Link>
 
-            <li className="sidebar-dropdown">
+            <Link to='/admin/categories'><li className="sidebar-dropdown">
               <a href="#">
                 <i className="fa fa-list-alt " />
                 <span>Category</span>
               </a>
-            </li>
-            <li className="sidebar-dropdown">
+            </li></Link>
+            <Link to='/admin/orders'><li className="sidebar-dropdown">
               <a href="#">
                 <i className="fa fa-chart-line" />
                 <span>Orders</span>
               </a>
-            </li>
+            </li></Link>
           </ul>
           <ul>
             <li className="header-menu">
               <span>Extra</span>
             </li>
-            <li className="sidebar-dropdown">
+           <Link to='admin/shopping-cards'> <li className="sidebar-dropdown">
               <a href="#">
                 <i className="fa fa-shopping-cart" />
                 <span>Shopping cart</span>
               </a>
-            </li>
+            </li></Link>
             <li className="sidebar-dropdown">
               <a href="#">
                 <i className="fa fa-thumbs-up" />
