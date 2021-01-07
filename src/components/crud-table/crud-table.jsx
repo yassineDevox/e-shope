@@ -1,37 +1,33 @@
-import React ,{useEffect} from "react";
-import './crud-table.css'
-import $ from 'jquery';
+import React, { useEffect } from "react";
+import "./crud-table.css";
+import $ from "jquery";
 
 export default function CrudTable(props) {
-
-    const jQueryFunction = () => {
-
-            $(document).ready(function(){
-                // Select/Deselect checkboxes
-                var checkbox = $('table tbody input[type="checkbox"]');
-                $("#selectAll").click(function(){
-                    if(this.checked){
-                        checkbox.each(function(){
-                            this.checked = true;                        
-                        });
-                    } else{
-                        checkbox.each(function(){
-                            this.checked = false;                        
-                        });
-                    } 
-                });
-                checkbox.click(function(){
-                    if(!this.checked){
-                        $("#selectAll").prop("checked", false);
-                    }
-                });
-            })
-    }
-    useEffect(() => {
-       
-        jQueryFunction()
-        
-    }, [])
+  const jQueryFunction = () => {
+    $(document).ready(function () {
+      // Select/Deselect checkboxes
+      var checkbox = $('table tbody input[type="checkbox"]');
+      $("#selectAll").click(function () {
+        if (this.checked) {
+          checkbox.each(function () {
+            this.checked = true;
+          });
+        } else {
+          checkbox.each(function () {
+            this.checked = false;
+          });
+        }
+      });
+      checkbox.click(function () {
+        if (!this.checked) {
+          $("#selectAll").prop("checked", false);
+        }
+      });
+    });
+  };
+  useEffect(() => {
+    jQueryFunction();
+  }, []);
 
   return (
     <section>
@@ -43,7 +39,7 @@ export default function CrudTable(props) {
                 <div className="row">
                   <div className="col-xs-6">
                     <h2>
-                      Manage <b>Categories</b>
+                      Manage <b>{props.title}</b>
                     </h2>
                   </div>
                   <div className="col-xs-6">
@@ -52,8 +48,8 @@ export default function CrudTable(props) {
                       className="btn btn-success"
                       data-toggle="modal"
                     >
-                     <i class="material-icons">&#xE147;</i>
-                      <span>Add New Category</span>
+                      <i class="material-icons">&#xE147;</i>
+                      <span>Add New {props.recordName}</span>
                     </a>
                     <a
                       href="#deleteCategoryModal"
@@ -74,31 +70,31 @@ export default function CrudTable(props) {
                         <label htmlFor="selectAll" />
                       </span>
                     </th>
-                    <th>Id</th>
-                    <th>Thumbnail</th>
-                    <th>Name</th>
-                    <th>Description</th>
+                    {Object.keys(props.propertiesNames).map((nameProperty) => (
+                      <th className="text-capitalize">{nameProperty}</th>
+                    ))}
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <span className="custom-checkbox">
-                        <input
-                          type="checkbox"
-                          id="checkbox1"
-                          name="options[]"
-                          defaultValue={1}
-                        />
-                        <label htmlFor="checkbox1" />
-                      </span>
-                    </td>
-                    <td>Thomas Hardy</td>
-                    <td>thomashardy@mail.com</td>
-                    <td>89 Chiaroscuro Rd, Portland, USA</td>
-                    <td>(171) 555-2222</td>
-                    <td>
+                  {props.records.length==0 ? <tr><td className='text-center' colSpan={6}>List Of Categories Empty 🙄 !!</td></tr>:props.records.map((r) => {
+                    return (
+                      <tr>
+                        <td>
+                          <span className="custom-checkbox">
+                            <input
+                              type="checkbox"
+                              id="checkbox1"
+                              name="options[]"
+                              defaultValue={1}
+                            />
+                            <label htmlFor="checkbox1" />
+                          </span>
+                        </td>
+                        <td>{r.id}</td>
+                    <td>{r.name}</td>
+                    <td>{r.thumbnail}</td>
+                    <td>{r.description}</td><td>
                       <a
                         href="#editCategoryModal"
                         className="edit"
@@ -126,19 +122,20 @@ export default function CrudTable(props) {
                         </i>
                       </a>
                     </td>
-                  </tr>
-                 
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
               <div className="clearfix">
                 <div className="hint-text">
-                  Showing <b>5</b> out of <b>25</b> entries
+                  Showing <b>5</b> out of <b>{props.records.length}</b> entries
                 </div>
                 <ul className="pagination">
                   <li className="page-item disabled">
                     <a href="#">Previous</a>
                   </li>
-                  <li className="page-item">
+                  <li className="page-item active">
                     <a href="#" className="page-link">
                       1
                     </a>
@@ -148,7 +145,7 @@ export default function CrudTable(props) {
                       2
                     </a>
                   </li>
-                  <li className="page-item active">
+                  <li className="page-item">
                     <a href="#" className="page-link">
                       3
                     </a>
@@ -192,19 +189,32 @@ export default function CrudTable(props) {
                 <div className="modal-body">
                   <div className="form-group">
                     <label>Name</label>
-                    <input name='name'  onChange={props.handleChange} type="text" className="form-control" required />
+                    <input
+                      name="name"
+                      onChange={props.handleChange}
+                      type="text"
+                      className="form-control"
+                      required
+                    />
                   </div>
                   <div className="form-group">
                     <label>Description</label>
                     <textarea
                       className="form-control"
                       required
-                      name='desc' onChange={props.handleChange} 
+                      name="desc"
+                      onChange={props.handleChange}
                     />
                   </div>
                   <div className="form-group">
                     <label>Url Image</label>
-                    <input name='img' onChange={props.handleChange}  type="text" className="form-control" required />
+                    <input
+                      name="thumbnail"
+                      onChange={props.handleChange}
+                      type="text"
+                      className="form-control"
+                      required
+                    />
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -213,7 +223,6 @@ export default function CrudTable(props) {
                     className="btn btn-default"
                     data-dismiss="modal"
                     defaultValue="Cancel"
-                    
                   />
                   <input
                     type="submit"
@@ -318,6 +327,4 @@ export default function CrudTable(props) {
       </div>
     </section>
   );
-
-  
 }

@@ -11,8 +11,8 @@ export default class Categories extends React.Component {
       category: {
         id: "",
         name: "",
-        img: "",
-        desc: "",
+        thumbnail: "",
+        description: "",
       },
       deletedCategoryId: "",
     };
@@ -27,6 +27,11 @@ export default class Categories extends React.Component {
           <CrudTable
             handleNewRecord={this.handleNewCategory}
             handleChange={this.handleChangeInput}
+            records={this.state.categories}
+            title='Categories'
+            recordName='Category'
+            propertiesNames={this.state.category}
+
           />
         </main>
       </div>
@@ -53,13 +58,22 @@ export default class Categories extends React.Component {
 
       this.setState({
         categories: newCatList,
-        category: { name: "", img: "", desc: "" },
+        category: {name: "", thumbnail: "", description: "" },
       });
     });
   };
 
   componentDidMount = () => {
-    axios.get("/categories.json").then((response) => console.log(response));
+    
+    axios.get("/categories.json").then((response) => {
+
+      if(response.data!=null){
+        let fetchedData = [];
+        Object.keys(response.data).map(key=>fetchedData.push({...response.data[key],id:key}))
+        this.setState({categories:fetchedData})
+      }
+    });
+
   };
 
 
