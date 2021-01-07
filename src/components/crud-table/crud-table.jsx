@@ -2,9 +2,9 @@ import React ,{useEffect} from "react";
 import './crud-table.css'
 import $ from 'jquery';
 
-export default function CrudTable() {
+export default function CrudTable(props) {
 
-    const jQueryFunction = ()=>{
+    const jQueryFunction = () => {
 
             $(document).ready(function(){
                 // Select/Deselect checkboxes
@@ -177,7 +177,7 @@ export default function CrudTable() {
         <div id="addCategoryModal" className="modal fade">
           <div className="modal-dialog">
             <div className="modal-content">
-              <form>
+              <form onSubmit={props.handleNewRecord}>
                 <div className="modal-header">
                   <h4 className="modal-title">Add Category</h4>
                   <button
@@ -192,19 +192,19 @@ export default function CrudTable() {
                 <div className="modal-body">
                   <div className="form-group">
                     <label>Name</label>
-                    <input type="text" className="form-control" required />
+                    <input name='name'  onChange={props.handleChange} type="text" className="form-control" required />
                   </div>
                   <div className="form-group">
                     <label>Description</label>
                     <textarea
                       className="form-control"
                       required
-                      defaultValue={""}
+                      name='desc' onChange={props.handleChange} 
                     />
                   </div>
                   <div className="form-group">
                     <label>Url Image</label>
-                    <input type="text" className="form-control" required />
+                    <input name='img' onChange={props.handleChange}  type="text" className="form-control" required />
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -213,6 +213,7 @@ export default function CrudTable() {
                     className="btn btn-default"
                     data-dismiss="modal"
                     defaultValue="Cancel"
+                    
                   />
                   <input
                     type="submit"
