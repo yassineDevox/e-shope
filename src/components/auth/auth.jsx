@@ -4,7 +4,7 @@ export default function Auth() {
     return (
         <div className="container-fluid">
   <div className="container p-5">
-    <h2 className="text-center" id="title">Eshope Admin Panel 🔥</h2>
+    <h2 className="text-center" id="title">E-shope Admin Panel 🔥</h2>
     <p className="text-center">
       <small id="passwordHelpInline" className="text-muted"> This is the admin panel app for this website  <a href="https://www.facebook.com/JheanYu">e-shop.com</a> </small>
     </p>

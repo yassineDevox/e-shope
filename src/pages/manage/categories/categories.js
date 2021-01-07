@@ -9,10 +9,12 @@ export default class Categories extends React.Component {
     this.state = {
       categories: [],
       category: {
+        id: "",
         name: "",
         img: "",
         desc: "",
       },
+      deletedCategoryId: "",
     };
   }
 
@@ -59,4 +61,7 @@ export default class Categories extends React.Component {
   componentDidMount = () => {
     axios.get("/categories.json").then((response) => console.log(response));
   };
+
+
+
 }
