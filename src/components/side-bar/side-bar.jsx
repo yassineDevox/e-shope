@@ -62,7 +62,7 @@ export default function Sidebar() {
             </li></Link>
             <Link to='/admin/products'><li className="sidebar-dropdown">
               <a href="#">
-                <i className="fa fa-tshirt" />
+                <i className="fas fa-tshirt" />
                 <span>Products</span>
               </a>
             </li></Link>

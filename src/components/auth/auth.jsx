@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Auth() {
+export default function Auth(props) {
     return (
         <div className="container-fluid">
   <div className="container p-5">
@@ -11,22 +11,15 @@ export default function Auth() {
     <hr />
     <div className="row">
       <div className="col-md-5">
-        <form role="form" method="post" action="register.php">
+        <form role="form" onSubmit={props.handleSignup}>
           <fieldset>							
             <p className="text-uppercase pull-center"> SIGN UP</p>	
             <div className="form-group">
-              <input type="text" name="username" id="username" className="form-control input-lg" placeholder="username" />
+              <input onChange={props.handleChange} type="email" name="email" id="email" className="form-control input-lg" placeholder="Email Address" />
             </div>
             <div className="form-group">
-              <input type="email" name="email" id="email" className="form-control input-lg" placeholder="Email Address" />
+              <input onChange={props.handleChange} type="password" name="password" id="password" className="form-control input-lg" placeholder="Password" />
             </div>
-            <div className="form-group">
-              <input type="password" name="password" id="password" className="form-control input-lg" placeholder="Password" />
-            </div>
-            <div className="form-group">
-              <input type="password" name="password2" id="password2" className="form-control input-lg" placeholder="Password2" />
-            </div>
-           
             <div>
               <input type="submit" className="btn btn-lg btn-primary"   value=" register" />
             </div>

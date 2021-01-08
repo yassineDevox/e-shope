@@ -1,0 +1,4 @@
+auth system signup page : 
+✔ context for auth system @started(21-01-08 06:36) @done(21-01-08 07:04) @lasted(28m32s)
+✔ consume the auth context @started(21-01-08 07:04) @done(21-01-08 07:11) @lasted(7m55s)
+✔ signup admin account @started(21-01-08 07:12) @done(21-01-08 08:24) @lasted(1h12m25s)

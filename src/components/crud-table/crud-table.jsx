@@ -101,7 +101,7 @@ export default function CrudTable(props) {
                         data-toggle="modal"
                       >
                         <i
-                          className="material-icons"
+                          className="material-icons"  
                           data-toggle="tooltip"
                           title="Edit"
                         >
