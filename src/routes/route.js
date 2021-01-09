@@ -6,12 +6,13 @@ import Products from "../pages/manage/products/products";
 import Categories from "../pages/manage/categories/categories";
 import Orders from "../pages/manage/orders/orders";
 import ShoppingCards from "../pages/manage/shopping-cards/shopping-cards";
-import {AuthProvider} from "../auth/context/aut-context";
+import { AuthProvider } from "../auth/context/auth-context";
 import AuthPage from "../auth/auth-page";
 
 export default function RouterApp() {
   return (
     <Router>
+      {/*  step 5 : laison dyale les composants m3a AuthProvider*/}
       <AuthProvider>
         <Switch>
           <Route exact path="/" component={AuthPage} />
