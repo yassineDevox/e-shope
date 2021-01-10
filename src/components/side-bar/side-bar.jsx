@@ -20,7 +20,7 @@ export default function Sidebar() {
     <nav id="sidebar" className="sidebar-wrapper">
       <div className="sidebar-content">
         <div className="sidebar-brand text-center ">
-          <a href="#  ">pro sidebar</a>
+          <a href="#  ">E-shope Admin</a>
           <div id="close-sidebar">
             <i className="fas fa-times" />
           </div>
