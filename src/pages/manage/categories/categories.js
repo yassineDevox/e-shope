@@ -20,10 +20,7 @@ export default class Categories extends React.Component {
 
   render() {
     return (
-      <div class="page-wrapper chiller-theme toggled">
-        <Sidebar />
-        <main className="page-content">
-          <h1> Categories Management !! </h1>
+          
           <CrudTable
             handleNewRecord={this.handleNewCategory}
             handleChange={this.handleChangeInput}
@@ -33,8 +30,6 @@ export default class Categories extends React.Component {
             propertiesNames={this.state.category}
 
           />
-        </main>
-      </div>
     );
   }
 

@@ -77,14 +77,23 @@ export default function Sidebar() {
         <div className="sidebar-menu">
           <ul>
             <li className="header-menu">
-              <span>Manager</span>
+              <span>Manage</span>
             </li>
             <Link to="/admin/customers">
               {" "}
               <li className="sidebar-dropdown">
                 <a href="#">
+                  <i className="fa fa-home" />
+                  <span>Dashboard</span>
+                </a>
+              </li>
+            </Link>
+            <Link to="/admin/">
+              {" "}
+              <li className="sidebar-dropdown">
+                <a href="#">
                   <i className="fa fa-users" />
-                  <span>Users</span>
+                  <span>Customers</span>
                 </a>
               </li>
             </Link>
