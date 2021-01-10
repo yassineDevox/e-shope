@@ -8,19 +8,17 @@ export default class AuthPage extends React.Component {
     this.state = {
       email: "",
       password: "",
-      error:"",
-      success:"",
-      nom:"",
-      pren:"",
-      avatar:""
+      error: "",
+      success: "",
+      nom: "",
+      pren: "",
+      avatar: "",
+      loading: false,
     };
     // this.handleSignup = this.handleSignup.bind(this);
-    // this.handleSignin = this.handleSignin.bind(this);
-    
+    this.handleSignin = this.handleSignin.bind(this);
   }
   render() {
-    //step 7 utilisatiorn des fonctions et aussi la partie data de AuthProvider
-    console.log(this.context.currentUser)
     return (
       <AuthUI
         handleSignup={this.handleSignup}
@@ -28,45 +26,68 @@ export default class AuthPage extends React.Component {
         handleChange={this.handleChangeInput}
         errorMSG={this.state.error}
         successMSG={this.state.success}
+        isLoading={this.state.loading}
       />
-     
     );
   }
 
-  handleSignup = (event)=>{
-
+  handleSignup = (event) => {
     event.preventDefault();
 
-    if(this.state.email=='' || this.state.password==''){
-      this.setState({error:'Signup Values Are Empty '})
-      return 
+    // fields validation part
+    if(!this._validateFieldsOfSignup){
+      this.setState({error:"Signup's values cannot be empty "})
+      return
     }
-    
-    const {email,password} = this.state;
+    //do signup
+    const { email, password } = this.state;
+    this.setState({ loading: true });
+    this.setState({error:''});
+    this.context
+      .signup(email, password)
+      .then((_) => {
+        this.setState({success:'Your Account has been added successfully try to signin'})
+        this.setState({ loading: false });
+      })
+      .catch((_) => {
+        this.setState({error:'failed to signup'})
+        this.setState({ loading: false });
+      });
+  };
 
-    //appeler la fonction sinup man context 
-    this.context.signup(email,password)
-
-
-  }
-
-  handleSignin = (event) =>{
-    
+  async handleSignin(event) {
     event.preventDefault();
-    if(this.state.email=='' || this.state.password==''){
-      this.setState({error:'Signin Values Are Empty '})
-      return 
+    if (this.state.email == "" || this.state.password == "") {
+      this.setState({ error: "Signin Values Are Empty " });
+      return;
     }
-    
-    const {email,password} = this.state;
-    this.context.signin(email,password);
-    this.props.history.push('/admin/categories')
 
+    try {
+      const { email, password } = this.state;
+      await this.context.signin(email, password);
+      this.props.history.push("/admin/categories");
+    } catch {
+      this.setState({ error: "failed to signin" });
+    }
   }
- 
 
   handleChangeInput = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  //--------util functions ----------
+  _validateFieldsOfSignup = () => {
+    Object.keys(this.state).map((k) => {
+      if (
+        k != "error" &&
+        k != "success" &&
+        k != "loading" &&
+        this.state[k] == ""
+      ) {
+        return false
+      }
+    });
+    return true;
   };
 }
 //step 6 : pour prendre le cle context pour acceder a AuthProvider

@@ -1,4 +1,5 @@
 import React from "react";
+import "./auth-ui.css";
 
 export default function AuthUI(props) {
   return (
@@ -20,7 +21,7 @@ export default function AuthUI(props) {
             <form role="form" onSubmit={props.handleSignup}>
               <fieldset>
                 <p className="text-uppercase pull-center"> SIGN UP</p>
-                {/* <div className="form-group">
+                <div className="form-group">
                   <input
                     onChange={props.handleChangeInput}
                     type="text"
@@ -44,11 +45,20 @@ export default function AuthUI(props) {
                   <label htmlFor="basic-url">Your Image URL</label>
                   <div className="input-group mb-3">
                     <div className="input-group-prepend">
-                      <span className="input-group-text" id="basic-addon3">Avatar : </span>
+                      <span className="input-group-text" id="basic-addon3">
+                        Avatar :{" "}
+                      </span>
                     </div>
-                    <input onChange={props.handleChange} name='avatar' type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" />
+                    <input
+                      onChange={props.handleChange}
+                      name="avatar"
+                      type="text"
+                      className="form-control"
+                      id="basic-url"
+                      aria-describedby="basic-addon3"
+                    />
                   </div>
-                </div> */}
+                </div>
                 <div className="form-group">
                   <input
                     onChange={props.handleChange}
@@ -74,7 +84,7 @@ export default function AuthUI(props) {
                     type="submit"
                     className="btn btn-lg btn-primary text-uppercase"
                     value=" register"
-                    style={{zoom:'.7'}} 
+                    style={{ zoom: ".7" }}
                   />
                 </div>
               </fieldset>
@@ -85,7 +95,6 @@ export default function AuthUI(props) {
             <form role="form" onSubmit={props.handleSignin}>
               <fieldset>
                 <p className="text-uppercase"> Login using your account: </p>
-                
 
                 <div className="form-group">
                   <input
@@ -108,7 +117,12 @@ export default function AuthUI(props) {
                   />
                 </div>
                 <div>
-                  <input style={{zoom:'.8'}} type="submit" className="btn btn-md btn-primary text-uppercase" Value="Sign In" />
+                  <input
+                    style={{ zoom: ".8" }}
+                    type="submit"
+                    className="btn btn-md btn-primary text-uppercase"
+                    Value="Sign In"
+                  />
                 </div>
               </fieldset>
             </form>
@@ -123,6 +137,12 @@ export default function AuthUI(props) {
           <a href="https://v4-alpha.getbootstrap.com/">boostrap v4.</a>
         </small>
       </p>
+      <p className={props.isLoading == true ? "text-center p-3" : "d-none"}>
+        <div class="spinner-border text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </p>
+
       <p
         className={
           props.errorMSG == "" ? "d-none" : "text-center alert-danger p-3"

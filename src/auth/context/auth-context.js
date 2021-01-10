@@ -23,9 +23,7 @@ export class AuthProvider extends React.Component {
   };
 
   logout = () => {
-
     return auth.signOut();
-
   };
 
   //step 4 laison entre authContext et AuthProvider
@@ -52,6 +50,14 @@ export class AuthProvider extends React.Component {
     //mani 3mar luser
     auth.onAuthStateChanged((user) => {
       this.setState({ currentUser: user });
+    });
+  };
+  //---------utils functions
+  _promisefunc = () => {
+    return new Promise(function (resolve, reject) {
+      setTimeout(() => {
+        resolve(console.log("signup ..."));
+      }, 10000);
     });
   };
 }
