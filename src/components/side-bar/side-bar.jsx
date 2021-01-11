@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import AuthContext from "../../auth/context/auth-context";
 
 export default function Sidebar() {
-  const { logout } = useContext(AuthContext);
+  const { logout ,currentUser} = useContext(AuthContext);
   const history = useHistory();
   const [dashboard, setdashboard] = useState(false);
   const [customers, setcustomers] = useState(false);
@@ -33,7 +33,11 @@ export default function Sidebar() {
     logout();
     history.push("/");
   }
+  if(currentUser){
+      console.log();
 
+  }
+  
   return (
     <nav id="sidebar" className="sidebar-wrapper">
       <div className="sidebar-content">
@@ -47,14 +51,14 @@ export default function Sidebar() {
           <div className="user-pic">
             <img
               className="mt-2 img-responsive img-rounded"
-              src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+              src={currentUser?.photoURL}
               alt="User picture"
             />
           </div>
           <div className="user-info">
             <span className="user-name">
-              Yassine
-              <strong>Rassy</strong>
+              {currentUser?.displayName?.split(' ')[0]+" "}
+              <strong>{currentUser?.displayName?.split(' ')[1]}</strong>
             </span>
             <span className="user-role">Administrator</span>
             <span className="user-status">

@@ -23,7 +23,7 @@ export default function AuthUI(props) {
                 <p className="text-uppercase pull-center"> SIGN UP</p>
                 <div className="form-group">
                   <input
-                    onChange={props.handleChangeInput}
+                    onChange={props.handleChange}
                     type="text"
                     name="nom"
                     id="nom"

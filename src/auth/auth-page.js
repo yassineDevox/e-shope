@@ -1,6 +1,7 @@
 import React from "react";
 import AuthUI from "../components/auth/auth-ui";
 import AuthContext from "./context/auth-context";
+import { auth } from "../utils/firebase";
 
 export default class AuthPage extends React.Component {
   constructor(props) {
@@ -35,9 +36,10 @@ export default class AuthPage extends React.Component {
     event.preventDefault();
 
     // fields validation part
+    // console.log(this._validateFieldsOfSignup());
     console.log(this._validateFieldsOfSignup());
 
-    if (!this._validateFieldsOfSignup()!= null) {
+    if (this._validateFieldsOfSignup() != undefined) {
       this.setState({ error: "Signup's values cannot be empty " });
       return;
     }
@@ -48,10 +50,27 @@ export default class AuthPage extends React.Component {
     this.context
       .signup(email, password)
       .then((_) => {
-        this.setState({
-          success: "Your Account has been added successfully try to signin",
+        const { avatar, nom, pren } = this.state;
+
+        auth.onAuthStateChanged((user) => {
+          user
+            .updateProfile({
+              displayName: nom + " " + pren,
+              photoURL: avatar,
+            })
+            .then(
+              (_) => {
+                this.setState({
+                  success:
+                    "Your Account has been added successfully try to signin",
+                });
+                this.setState({ loading: false });
+              },
+              function (error) {
+                console.log(error);
+              }
+            );
         });
-        this.setState({ loading: false });
       })
       .catch((_) => {
         this.setState({ error: "failed to signup" });
@@ -59,24 +78,30 @@ export default class AuthPage extends React.Component {
       });
   };
 
-   handleSignin=(event) =>{
+  handleSignin = (event) => {
     event.preventDefault();
     if (this.state.email == "" || this.state.password == "") {
-      this.setState({ error : "Signin Values Are Empty " });
+      this.setState({ error: "Signin Values Are Empty " });
       return;
     }
     const { email, password } = this.state;
+    this.setState({ loading: true });
+    this.setState({ error: "" });
     this.context
-      .signup(email, password)
-      .then(_ => {
-        this.props.history('/admin')
-        this.setState({ loading : false });
+      .signin(email, password)
+      .then((data) => {
+        console.log(data);
+
+        this.props.history.push("/admin/");
+        this.setState({ loading: false });
       })
-      .catch(_ => {
+      .catch((error) => {
+        console.log(error);
+
         this.setState({ error: "failed to signin " });
-        this.setState({ loading : false });
+        this.setState({ loading: false });
       });
-  }
+  };
 
   handleChangeInput = (e) => {
     this.setState({ [e.target.name]: e.target.value });

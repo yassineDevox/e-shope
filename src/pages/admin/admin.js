@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Error404 from "../error/404";
 import Customers from "../manage/customers/customers";
 import Products from "../manage/products/products";
@@ -11,7 +11,6 @@ import Sidebar from "../../components/side-bar/side-bar";
 const ADMIN = "/admin";
 export default function AdminPage() {
   return (
-    <Router>
       <div class="page-wrapper chiller-theme toggled">
         <Sidebar />
         <main className="page-content">
@@ -26,6 +25,5 @@ export default function AdminPage() {
           </Switch>
         </main>
       </div>
-    </Router>
   );
 }
