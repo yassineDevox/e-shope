@@ -1,65 +1,54 @@
-import React from "react";
-import { auth } from "../../utils/firebase";
+import { auth } from './../../utils/firebase'
 
-//step 2 : creer context pour acceder a AuthProvider Component
+// step1
+import React from "react";
+//step2
 const AuthContext = React.createContext();
 
-//step 1 creer AuthProvider
+// step1
 export class AuthProvider extends React.Component {
   constructor(props) {
     super(props);
-    //shared data
     this.state = {
       currentUser: {},
     };
   }
-  //shared functions
-  signup = (email, password) => {
-    return auth.createUserWithEmailAndPassword(email, password);
-  };
-
-  signin = (email, password) => {
-    return auth.signInWithEmailAndPassword(email, password);
-  };
-
-  logout = () => {
-    return auth.signOut();
-  };
-
-  //step 4 laison entre authContext et AuthProvider
-  render() {
-    const { currentUser } = this.state;
-    const { signup, signin, logout } = this;
-
-    //step 8 passer les donnees avec les fonctions
-    const x = {
-      currentUser,
-      signup,
-      signin,
-      logout,
-    };
-    return (
-      <AuthContext.Provider value={x}>
-        {/* step5 : laison dyale les composants m3a AuthProvider */}
-        {this.props.children}
-      </AuthContext.Provider>
-    );
+  signup = (email,password) => {
+    return auth.createUserWithEmailAndPassword(email,password);
   }
 
-  componentDidMount = () => {
-    //mani 3mar luser
-    auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user });
-    });
+
+  signin = (email,password) => {
+    return auth.signInWithEmailAndPassword(email,password);
   };
-  //---------utils functions
-  _promisefunc = () => {
-    return new Promise(function (resolve, reject) {
-      setTimeout(() => {
-        resolve(console.log("signup ..."));
-      }, 10000);
-    });
-  };
+
+  logout = () => {alert('logout 🙄')};
+
+  // step4
+  render() {
+    //step 5 mentioner les fonctions et les donnees accessibles par les composants
+
+    const { currentUser } = this.state;
+
+    // const currentUser = this.state.currentUser
+
+    const { signin, signup, logout } = this;
+
+    const value = {
+      currentUser,
+      signin,
+      signup,
+      logout,
+    };
+
+    return(
+      <AuthContext.Provider value={value}>
+      {/* laison entre les coposants et le provider step 1 */}
+      {this.props.children}
+    </AuthContext.Provider>
+    )
+    
+  }
 }
-//step 2
+// step2
 export default AuthContext;

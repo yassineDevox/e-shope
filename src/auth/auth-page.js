@@ -1,119 +1,114 @@
-import React from "react";
-import AuthUI from "../components/auth/auth-ui";
+import React, { Component } from "react";
 import AuthContext from "./context/auth-context";
-import { auth } from "../utils/firebase";
 
-export default class AuthPage extends React.Component {
+export class AuthPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password: "",
-      error: "",
-      success: "",
-      nom: "",
-      pren: "",
-      avatar: "",
-      loading: false,
+      error:false,
+      error1:false,
+      title: "",
+      success:false
     };
-    // this.handleSignup = this.handleSignup.bind(this);
-    this.handleSignin = this.handleSignin.bind(this);
   }
+
   render() {
     return (
-      <AuthUI
-        handleSignup={this.handleSignup}
-        handleSignin={this.handleSignin}
-        handleChange={this.handleChangeInput}
-        errorMSG={this.state.error}
-        successMSG={this.state.success}
-        isLoading={this.state.loading}
-      />
+      <div className="container p-5">
+        <input
+          name="email"
+          type="email"
+          className="form-control w-50"
+          onChange={this.handleChangeInput}
+          placeholder="email"
+        />
+        <input
+          name="password"
+          type="password"
+          className="form-control w-50"
+          onChange={this.handleChangeInput}
+          placeholder="password"
+        />
+        <button className="btn btn-primary m-5" onClick={this.register}>
+          signup
+        </button>
+        <button className="btn btn-primary m-5" onClick={this.login}>
+          signin
+        </button>
+
+        <p className={this.state.error ? "alert alert-danger" : "d-none"}>
+          {this.state.title}
+        </p>
+        <p className={this.state.success ? "alert alert-success" : "d-none"}>
+          {this.state.title}
+        </p>
+        
+      </div>
     );
   }
 
-  handleSignup = (event) => {
-    event.preventDefault();
+  register = () => {
 
-    // fields validation part
-    // console.log(this._validateFieldsOfSignup());
-    console.log(this._validateFieldsOfSignup());
-
-    if (this._validateFieldsOfSignup() != undefined) {
-      this.setState({ error: "Signup's values cannot be empty " });
-      return;
-    }
-    //do signup
+    this.setState({error:false,success:false})
+    //validation des donnees
     const { email, password } = this.state;
-    this.setState({ loading: true });
-    this.setState({ error: "" });
-    this.context
-      .signup(email, password)
-      .then((_) => {
-        const { avatar, nom, pren } = this.state;
 
-        auth.onAuthStateChanged((user) => {
-          user
-            .updateProfile({
-              displayName: nom + " " + pren,
-              photoURL: avatar,
-            })
-            .then(
-              (_) => {
-                this.setState({
-                  success:
-                    "Your Account has been added successfully try to signin",
-                });
-                this.setState({ loading: false });
-              },
-              function (error) {
-                console.log(error);
-              }
-            );
+    if (email == "" || password == "") {
+
+
+      this.setState({ error: true, title: "register empty" });
+
+    } else {
+
+
+      this.setState({ error: false });
+
+      this.context
+        .signup(email, password)
+        //account was created successfuly
+        .then((data) => {
+
+          console.log(data);
+          this.setState({ error: false });
+          this.setState({success:true,title:'Your account has been created successfuly 🥰 Plz Signin !!'})
+        })
+        .catch((error) => {
+           this.setState({ error: true, title: error.message });
         });
-      })
-      .catch((_) => {
-        this.setState({ error: "failed to signup" });
-        this.setState({ loading: false });
-      });
+    }
   };
 
-  handleSignin = (event) => {
-    event.preventDefault();
-    if (this.state.email == "" || this.state.password == "") {
-      this.setState({ error: "Signin Values Are Empty " });
-      return;
-    }
+  login = () => {
+    this.setState({error:false,success:false})
+
+    //validation des donnees
     const { email, password } = this.state;
-    this.setState({ loading: true });
-    this.setState({ error: "" });
-    this.context
-      .signin(email, password)
-      .then((data) => {
-        console.log(data);
+  
+    if (email == "" || password == "") {
+      this.setState({ error: true, title: "login empty" });
 
-        this.props.history.push("/admin/");
-        this.setState({ loading: false });
-      })
-      .catch((error) => {
-        console.log(error);
+    } else {
 
-        this.setState({ error: "failed to signin " });
-        this.setState({ loading: false });
-      });
+      this.context
+        .signin(email, password)
+        .then((data) => {
+          this.props.history.push('/admin')
+          this.setState({ error: false });
+        })
+        .catch((error) => {
+          this.setState({ error: true, title: error.message });
+       });
+     
+    }
   };
 
   handleChangeInput = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
-  //--------util functions ----------
-  _validateFieldsOfSignup = () => {
-    return Object.keys(this.state).find(
-      (k) =>
-        k != "error" && k != "success" && k != "loading" && this.state[k] == ""
-    );
-  };
 }
-//step 6 : pour prendre le cle context pour acceder a AuthProvider
+
 AuthPage.contextType = AuthContext;
+
+export default AuthPage;

@@ -11,10 +11,10 @@ export default function RouterApp() {
       {/*  step 5 : laison dyale les composants m3a AuthProvider*/}
       <AuthProvider>
         <Switch>
-          <Route exact path="/" component={AuthPage} />
-          <Route path="/admin" component={AdminPage}/>
-          <Route path="*" component={Error404} />
-        </Switch>
+            <Route exact path="/" component={AuthPage} />
+            <Route path="/admin" component={AdminPage}/>
+            <Route path="*" component={Error404} />
+          </Switch>
       </AuthProvider>
     </Router>
   );
