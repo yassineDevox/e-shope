@@ -33,6 +33,7 @@ export default class AuthPage extends React.Component {
   }
 
   handleSignup = (event) => {
+
     event.preventDefault();
 
     // fields validation part
@@ -65,6 +66,7 @@ export default class AuthPage extends React.Component {
                     "Your Account has been added successfully try to signin",
                 });
                 this.setState({ loading: false });
+                event.target.reset()
               },
               function (error) {
                 this.setState({ error:error.message });
