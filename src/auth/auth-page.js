@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AuthContext from "./context/auth-context";
+import './auth-page.css'
 
 export class AuthPage extends Component {
   constructor(props) {
@@ -7,10 +8,11 @@ export class AuthPage extends Component {
     this.state = {
       email: "",
       password: "",
-      error:false,
-      error1:false,
+      error: false,
+      error1: false,
       title: "",
-      success:false
+      success: false,
+      loading:false
     };
   }
 
@@ -44,63 +46,65 @@ export class AuthPage extends Component {
         <p className={this.state.success ? "alert alert-success" : "d-none"}>
           {this.state.title}
         </p>
-        
+        <div className={this.state.loading ? "spinner-border text-danger":'d-none'} >
+          <span className="sr-only">Loading...</span>
+        </div>
       </div>
     );
   }
 
   register = () => {
-
-    this.setState({error:false,success:false})
+    this.setState({ error: false, success: false });
     //validation des donnees
     const { email, password } = this.state;
 
     if (email == "" || password == "") {
-
-
       this.setState({ error: true, title: "register empty" });
-
     } else {
-
-
       this.setState({ error: false });
+
+      this.setState({loading:true})
 
       this.context
         .signup(email, password)
         //account was created successfuly
         .then((data) => {
-
           console.log(data);
           this.setState({ error: false });
-          this.setState({success:true,title:'Your account has been created successfuly 🥰 Plz Signin !!'})
+          this.setState({
+            success: true,
+            title: "Your account has been created successfuly 🥰 Plz Signin !!",  
+            loading:false
+          });
         })
         .catch((error) => {
-           this.setState({ error: true, title: error.message });
+          this.setState({ error: true, title: error.message ,loading:false});
         });
     }
   };
 
   login = () => {
-    this.setState({error:false,success:false})
+    this.setState({ error: false, success: false });
 
     //validation des donnees
     const { email, password } = this.state;
-  
+
     if (email == "" || password == "") {
       this.setState({ error: true, title: "login empty" });
-
     } else {
 
+      this.setState({loading:true})
       this.context
         .signin(email, password)
         .then((data) => {
-          this.props.history.push('/admin')
+          this.props.history.push("/admin");
           this.setState({ error: false });
+          this.setState({loading:false})
         })
         .catch((error) => {
           this.setState({ error: true, title: error.message });
-       });
-     
+          this.setState({loading:false})
+        });
     }
   };
 
