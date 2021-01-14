@@ -67,13 +67,13 @@ export default class AuthPage extends React.Component {
                 this.setState({ loading: false });
               },
               function (error) {
-                console.log(error);
+                this.setState({ error:error.message });
               }
             );
         });
       })
-      .catch((_) => {
-        this.setState({ error: "failed to signup" });
+      .catch((error) => {
+        this.setState({ error:error.message });
         this.setState({ loading: false });
       });
   };
@@ -96,9 +96,7 @@ export default class AuthPage extends React.Component {
         this.setState({ loading: false });
       })
       .catch((error) => {
-        console.log(error);
-
-        this.setState({ error: "failed to signin " });
+        this.setState({ error: error.message });
         this.setState({ loading: false });
       });
   };
