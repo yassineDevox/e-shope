@@ -14,7 +14,15 @@ export class AuthProvider extends React.Component {
     };
   }
   signup = (email,password) => {
-    return auth.createUserWithEmailAndPassword(email,password);
+    
+     auth.createUserWithEmailAndPassword(email,password);
+        
+  }
+
+  componentDidMount(){
+    auth.onAuthStateChanged(user => {
+      this.setState({currentUser:user})
+    })
   }
 
 
@@ -22,7 +30,9 @@ export class AuthProvider extends React.Component {
     return auth.signInWithEmailAndPassword(email,password);
   };
 
-  logout = () => {alert('logout 🙄')};
+  logout = () => {
+    return auth.signOut();
+  };
 
   // step4
   render() {

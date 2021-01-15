@@ -1,42 +1,20 @@
 import "./side-bar.css";
-import { NavLink, Link, useHistory } from "react-router-dom";
-import { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import AuthContext from "../../auth/context/auth-context";
+import { useContext } from "react";
+
 
 export default function Sidebar() {
-  const { logout ,currentUser} = useContext(AuthContext);
-  const history = useHistory();
-  const [dashboard, setdashboard] = useState(false);
-  const [customers, setcustomers] = useState(false);
-  const [products, setproducts] = useState(false);
-  const [categories, setcategories] = useState(false);
-  const [orders, setorders] = useState(false);
-  const [shoppingCard, setshoppingCard] = useState(false);
 
-  function setAll(
-    dashboard,
-    customers,
-    products,
-    categories,
-    orders,
-    shoppingCard
-  ) {
-    setdashboard(dashboard);
-    setcustomers(customers);
-    setproducts(products);
-    setcategories(categories);
-    setorders(orders);
-    setshoppingCard(shoppingCard);
-  }
+  const {logout,currentUser} = useContext(AuthContext)
+  const history = useHistory();
 
   function logoutMe() {
-    logout();
-    history.push("/");
+    logout()
+    history.push('/');
   }
-  if(currentUser){
-      console.log();
 
-  }
+  console.log(currentUser);
   
   return (
     <nav id="sidebar" className="sidebar-wrapper">
@@ -51,14 +29,14 @@ export default function Sidebar() {
           <div className="user-pic">
             <img
               className="mt-2 img-responsive img-rounded"
-              src={currentUser?.photoURL}
+              src="http://placekitten.com/200/200"
               alt="User picture"
             />
           </div>
           <div className="user-info">
             <span className="user-name">
-              {currentUser?.displayName?.split(' ')[0]+" "}
-              <strong>{currentUser?.displayName?.split(' ')[1]}</strong>
+             Yassine
+              <strong> Rassy</strong>
             </span>
             <span className="user-role">Administrator</span>
             <span className="user-status">
@@ -101,112 +79,84 @@ export default function Sidebar() {
             <li className="header-menu">
               <span>Manage</span>
             </li>
-            <NavLink
+            <Link
               to="/admin/"
-              isActive={(match) => {
-                if (match && match.isExact)
-                  setAll(true, false, false, false, false, false);
-              }}
+              
             >
               {" "}
               <li
-                className={`sidebar-dropdown ${
-                  dashboard == true ? " active" : ""
-                }`}
-              >
+                           className="sidebar-dropdown ">
+
                 <a href="#">
                   <i className="fa fa-home" />
                   <span>Dashboard</span>
                 </a>
               </li>
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/admin/customers"
-              isActive={(match) => {
-                if (match && match.isExact)
-                  setAll(false, true, false, false, false, false);
-              }}
+              
             >
               {" "}
               <li
-                className={`sidebar-dropdown ${
-                  customers == true ? " active" : ""
-                }`}>
+                             className="sidebar-dropdown ">
+
                 <a href="#">
                   <i className="fa fa-users" />
                   <span>Customers</span>
                 </a>
               </li>
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/admin/products"
-              isActive={(match) => {
-                if (match && match.isExact)
-                  setAll(false, false, true, false, false, false);
-              }}>
+              >
               <li
-              className={`sidebar-dropdown ${
-                products == true ? " active" : ""
-              }`}>
+                            className="sidebar-dropdown ">
+
                 <a href="#">
                   <i className="fas fa-tshirt" />
                   <span>Products</span>
                 </a>
               </li>
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/admin/categories"
-              isActive={(match) => {
-                if (match && match.isExact)
-                  setAll(false, false, false, true, false, false);
-              }}>
+              >
               <li
-              className={`sidebar-dropdown ${
-                categories == true ? " active" : ""
-              }`}>
+                           className="sidebar-dropdown ">
+
                 <a href="#">
                   <i className="fa fa-list-alt " />
                   <span>Category</span>
                 </a>
               </li>
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/admin/orders"
-              isActive={(match) => {
-                if (match && match.isExact)
-                  setAll(false, false, false, false, true, false);
-              }}>
-              <li
-              className={`sidebar-dropdown ${
-                orders == true ? " active" : ""
-              }`}>
+              >
+              <li>
                 <a href="#">
                   <i className="fa fa-chart-line" />
                   <span>Orders</span>
                 </a>
               </li>
-            </NavLink>
+            </Link>
           </ul>
           <ul>
             <li className="header-menu">
               <span>Extra</span>
             </li>
-            <NavLink
+            <Link
               to="/admin/shopping-cards"
-              isActive={(match) => {
-                if (match && match.isExact)
-                  setAll(false, false, false, false, false, true);
-              }}>
+              >
               <li
-              className={`sidebar-dropdown ${
-                shoppingCard == true ? " active" : ""
-              }`}>
+              className="sidebar-dropdown ">
                 <a href="#">
                   <i className="fa fa-shopping-cart" />
                   <span>Shopping cart</span>
                 </a>
               </li>
-            </NavLink>
+            </Link>
             <li className="sidebar-dropdown">
               <a href="#">
                 <i className="fa fa-thumbs-up" />
