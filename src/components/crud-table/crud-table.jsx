@@ -70,6 +70,7 @@ export default function CrudTable(props) {
                         <label htmlFor="selectAll" />
                       </span>
                     </th>
+                    <th>#</th>
                     {Object.keys(props.propertiesNames).map((nameProperty) => (
                       <th className="text-capitalize">{nameProperty}</th>
                     ))}
@@ -77,58 +78,73 @@ export default function CrudTable(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {props.records.length==0 ? <tr><td className='text-center' colSpan={6}>List Of Categories Empty 🙄 !!</td></tr>
-                  :props.records.map((r) => {
-                    return (
-                      <tr>
-                        <td>
-                          <span className="custom-checkbox">
-                            <input
-                              type="checkbox"
-                              id="checkbox1"
-                              name="options[]"
-                              defaultValue={1}
-                            />
-                            <label htmlFor="checkbox1" />
-                          </span>
-                        </td>
-                        {Object.keys(props.propertiesNames).map(k=>{
-
-                          return (
-                           <td>{ k=='thumbnail'? <img height="100" src={r[k]} alt=""/>:r[k]}</td>
-                          )
-                        })}
-                        <td>
-                      <a
-                        href="#editCategoryModal"
-                        className="edit"
-                        data-toggle="modal"
-                      >
-                        <i
-                          className="material-icons"  
-                          data-toggle="tooltip"
-                          title="Edit"
-                        >
-                          
-                        </i>
-                      </a>
-                      <a
-                        href="#deleteCategoryModal"
-                        className="delete"
-                        data-toggle="modal"
-                      >
-                        <i
-                          className="material-icons"
-                          data-toggle="tooltip"
-                          title="Delete"
-                        >
-                          
-                        </i>
-                      </a>
-                    </td>
-                      </tr>
-                    );
-                  })}
+                  {props.records.length == 0 ? (
+                    <tr>
+                      <td className="text-center" colSpan={6}>
+                        List Of Categories Empty 🙄 !!
+                      </td>
+                    </tr>
+                  ) : (
+                    props.records.map((r) => {
+                      return (
+                        <tr>
+                          <td>
+                            <span className="custom-checkbox">
+                              <input
+                                type="checkbox"
+                                id="checkbox1"
+                                name="options[]"
+                                defaultValue={1}
+                              />
+                              <label htmlFor="checkbox1" />
+                            </span>
+                          </td>
+                          <td>{r.id}</td>
+                          {Object.keys(props.propertiesNames).map((k) => {
+                            return (
+                              <td>
+                                {k == "thumbnail" ? (
+                                  <img height="100" src={r[k]} alt="" />
+                                ) : (
+                                  r[k]
+                                )}
+                              </td>
+                            );
+                          })}
+                          <td>
+                            <a
+                              href="#editCategoryModal"
+                              className="edit"
+                              data-toggle="modal"
+                              onClick={() => props.handleEditRecord(r)}
+                            >
+                              <i
+                                className="material-icons"
+                                data-toggle="tooltip"
+                                title="Edit"
+                              >
+                                
+                              </i>
+                            </a>
+                            <a
+                              href="#deleteCategoryModal"
+                              className="delete"
+                              data-toggle="modal"
+                              onClick={() => props.handleDeleteRecord(r.id)}
+                            >
+                              <i
+                                className="material-icons"
+                                data-toggle="tooltip"
+                                title="Delete"
+                              >
+                                
+                              </i>
+                            </a>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
               <div className="clearfix">
@@ -180,7 +196,7 @@ export default function CrudTable(props) {
             <div className="modal-content">
               <form onSubmit={props.handleNewRecord}>
                 <div className="modal-header">
-                <h4 className="modal-title">Add {props.recordName}</h4>
+                  <h4 className="modal-title">Add {props.recordName}</h4>
                   <button
                     type="button"
                     className="close"
@@ -191,24 +207,19 @@ export default function CrudTable(props) {
                   </button>
                 </div>
                 <div className="modal-body">
-
-                  {
-                    Object.keys(props.propertiesNames).map((k)=>{
-                      if(k!='id')
-                      return (
-                        <div className="form-group">
-                        <label className='text-capitalize'>{k}</label>
+                  {Object.keys(props.propertiesNames).map((k) => {
+                    return (
+                      <div className="form-group">
+                        <label className="text-capitalize">{k}</label>
                         <input
                           name={k}
                           onChange={props.handleChange}
                           type="text"
                           className="form-control"
-                          required
                         />
                       </div>
-                      )
-                    })
-                  }
+                    );
+                  })}
                 </div>
                 <div className="modal-footer">
                   <input
@@ -221,6 +232,7 @@ export default function CrudTable(props) {
                     type="submit"
                     className="btn btn-success"
                     defaultValue="Add"
+                    data-dismiss="modal"
                   />
                 </div>
               </form>
@@ -233,7 +245,7 @@ export default function CrudTable(props) {
             <div className="modal-content">
               <form>
                 <div className="modal-header">
-                  <h4 className="modal-title">Edit Category</h4>
+                  <h4 className="modal-title">Edit {props.recordName}</h4>
                   <button
                     type="button"
                     className="close"
@@ -244,22 +256,22 @@ export default function CrudTable(props) {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <div className="form-group">
-                    <label>Name</label>
-                    <input type="text" className="form-control" required />
-                  </div>
-                  <div className="form-group">
-                    <label>Description</label>
-                    <textarea
-                      className="form-control"
-                      required
-                      defaultValue={""}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Url Image</label>
-                    <input type="text" className="form-control" required />
-                  </div>
+                  {Object.keys(props.propertiesNames).map((k) => {
+                    if (k != "id")
+                      return (
+                        <div className="form-group">
+                          <label className="text-capitalize">{k}</label>
+                          <input
+                            onChange={props.handleChange}
+                            className="form-control"
+                            value={props.propertiesNames[k]}
+                            type="text"
+                            name={k}
+                            required
+                          />
+                        </div>
+                      );
+                  })}
                 </div>
                 <div className="modal-footer">
                   <input
@@ -271,7 +283,9 @@ export default function CrudTable(props) {
                   <input
                     type="submit"
                     className="btn btn-info"
-                    defaultValue="Save"
+                    defaultValue="Edit"
+                    data-dismiss="modal"
+                    onClick={props.handleSubmitForEditRecord}
                   />
                 </div>
               </form>
@@ -284,7 +298,7 @@ export default function CrudTable(props) {
             <div className="modal-content">
               <form>
                 <div className="modal-header">
-                  <h4 className="modal-title">Delete Category</h4>
+                  <h4 className="modal-title">Delete {props.recordName}</h4>
                   <button
                     type="button"
                     className="close"
@@ -309,8 +323,10 @@ export default function CrudTable(props) {
                   />
                   <input
                     type="submit"
+                    data-dismiss="modal"
                     className="btn btn-danger"
                     defaultValue="Delete"
+                    onClick={props.handleSubmitForDeleteRecord}
                   />
                 </div>
               </form>

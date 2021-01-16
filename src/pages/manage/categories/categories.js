@@ -13,21 +13,24 @@ export default class Categories extends React.Component {
         description: "",
       },
       deletedCategoryId: "",
+      updatedCategoryId: "",
     };
   }
 
   render() {
-
     return (
-          
-          <CrudTable
-            handleNewRecord={this.handleNewCategory}
-            handleChange={this.handleChangeInput}
-            records={this.state.categories}
-            title='Categories'
-            recordName='Category'
-            propertiesNames={this.state.category}
-          />
+      <CrudTable
+        handleNewRecord={this.handleNewCategory}
+        handleEditRecord={this.handleEditCategory}
+        handleSubmitForEditRecord={this.handleSubmitForEditCategory}
+        handleDeleteRecord={this.handleDeleteCategory}
+        handleSubmitForDeleteRecord={this.handleSubmitForDeleteCategory}
+        handleChange={this.handleChangeInput}
+        records={this.state.categories}
+        title="Categories"
+        recordName="Category"
+        propertiesNames={this.state.category}
+      />
     );
   }
 
@@ -36,6 +39,40 @@ export default class Categories extends React.Component {
       prevState.category[e.target.name] = e.target.value;
       return prevState;
     });
+  };
+
+  handleDeleteCategory = (catID) => {
+    this.setState({ deletedCategoryId: catID });
+  };
+  handleEditCategory = (cat) => {
+    console.log(cat);
+    let catt = {
+      name: cat.name,
+      thumbnail: cat.thumbnail,
+      description: cat.description,
+    };
+    this.setState({ category: catt, updatedCategoryId: cat.id });
+  };
+
+  handleSubmitForDeleteCategory = (e) => {
+    e.preventDefault();
+    axios
+      .delete("/cats/" + this.state.deletedCategoryId + ".json")
+      .then((_) => this._getAllCategories());
+  };
+  handleSubmitForEditCategory = (e) => {
+    e.preventDefault();
+    axios
+      .put(
+        "/cats/" + this.state.updatedCategoryId + ".json",
+        this.state.category
+      )
+      .then((_) => {
+        this._getAllCategories();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   handleNewCategory = (e) => {
@@ -52,27 +89,25 @@ export default class Categories extends React.Component {
 
       this.setState({
         categories: newCatList,
-        category: {name: "", thumbnail: "", description: "" },
+        category: { name: "", thumbnail: "", description: "" },
       });
     });
   };
 
   componentDidMount = () => {
-    
-    this._getAllCategories()
-
+    this._getAllCategories();
   };
 
-  _getAllCategories = ()=>{
+  _getAllCategories = () => {
     axios.get("/cats.json").then((response) => {
-
-      if(response.data!=null){
+      if (response.data != null) {
+        console.log(response);
         let fetchedData = [];
-        Object.keys(response.data).map(key=>fetchedData.push({...response.data[key],id:key}))
-        this.setState({categories:fetchedData})
+        Object.keys(response.data).map((key) =>
+          fetchedData.push({ ...response.data[key], id: key })
+        );
+        this.setState({ categories: fetchedData });
       }
     });
-  }
-
-
+  };
 }
