@@ -77,7 +77,8 @@ export default function CrudTable(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {props.records.length==0 ? <tr><td className='text-center' colSpan={6}>List Of Categories Empty 🙄 !!</td></tr>:props.records.map((r) => {
+                  {props.records.length==0 ? <tr><td className='text-center' colSpan={6}>List Of Categories Empty 🙄 !!</td></tr>
+                  :props.records.map((r) => {
                     return (
                       <tr>
                         <td>
@@ -91,10 +92,13 @@ export default function CrudTable(props) {
                             <label htmlFor="checkbox1" />
                           </span>
                         </td>
-                        <td>{r.id}</td>
-                    <td>{r.name}</td>
-                    <td>{r.thumbnail}</td>
-                    <td>{r.description}</td><td>
+                        {Object.keys(props.propertiesNames).map(k=>{
+
+                          return (
+                           <td>{ k=='thumbnail'? <img height="100" src={r[k]} alt=""/>:r[k]}</td>
+                          )
+                        })}
+                        <td>
                       <a
                         href="#editCategoryModal"
                         className="edit"
@@ -176,7 +180,7 @@ export default function CrudTable(props) {
             <div className="modal-content">
               <form onSubmit={props.handleNewRecord}>
                 <div className="modal-header">
-                  <h4 className="modal-title">Add Category</h4>
+                <h4 className="modal-title">Add {props.recordName}</h4>
                   <button
                     type="button"
                     className="close"
@@ -187,35 +191,24 @@ export default function CrudTable(props) {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <div className="form-group">
-                    <label>Name</label>
-                    <input
-                      name="name"
-                      onChange={props.handleChange}
-                      type="text"
-                      className="form-control"
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Description</label>
-                    <textarea
-                      className="form-control"
-                      required
-                      name="desc"
-                      onChange={props.handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Url Image</label>
-                    <input
-                      name="thumbnail"
-                      onChange={props.handleChange}
-                      type="text"
-                      className="form-control"
-                      required
-                    />
-                  </div>
+
+                  {
+                    Object.keys(props.propertiesNames).map((k)=>{
+                      if(k!='id')
+                      return (
+                        <div className="form-group">
+                        <label className='text-capitalize'>{k}</label>
+                        <input
+                          name={k}
+                          onChange={props.handleChange}
+                          type="text"
+                          className="form-control"
+                          required
+                        />
+                      </div>
+                      )
+                    })
+                  }
                 </div>
                 <div className="modal-footer">
                   <input

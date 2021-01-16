@@ -1,5 +1,4 @@
 import React from "react";
-import Sidebar from "../../../components/side-bar/side-bar";
 import CrudTable from "../../../components/crud-table/crud-table";
 import axios from "./../../../utils/axios";
 
@@ -9,7 +8,6 @@ export default class Categories extends React.Component {
     this.state = {
       categories: [],
       category: {
-        id: "",
         name: "",
         thumbnail: "",
         description: "",
@@ -19,6 +17,7 @@ export default class Categories extends React.Component {
   }
 
   render() {
+
     return (
           
           <CrudTable
@@ -28,7 +27,6 @@ export default class Categories extends React.Component {
             title='Categories'
             recordName='Category'
             propertiesNames={this.state.category}
-
           />
     );
   }
@@ -45,9 +43,10 @@ export default class Categories extends React.Component {
     let Data = {
       ...this.state.category,
     };
-    axios.post("/categories.json", Data).then((response) => {
-      let newCatList = this.state.categories.push({
-        ...response.data,
+    axios.post("/cats.json", Data).then((response) => {
+      let newCatList = this.state.categories;
+      newCatList.push({
+        ...Data,
         id: response.name,
       });
 
@@ -60,7 +59,12 @@ export default class Categories extends React.Component {
 
   componentDidMount = () => {
     
-    axios.get("/categories.json").then((response) => {
+    this._getAllCategories()
+
+  };
+
+  _getAllCategories = ()=>{
+    axios.get("/cats.json").then((response) => {
 
       if(response.data!=null){
         let fetchedData = [];
@@ -68,9 +72,7 @@ export default class Categories extends React.Component {
         this.setState({categories:fetchedData})
       }
     });
-
-  };
-
+  }
 
 
 }

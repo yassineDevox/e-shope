@@ -1,0 +1,8 @@
+crud table for categories:
+    ✔ get all categories @started(21-01-16 13:41) @done(21-01-16 13:58) @lasted(17m59s)
+    ✔ add new category @started(21-01-16 13:59) @done(21-01-16 14:27) @lasted(28m58s)
+    [] edit existing category
+    [] delete catory
+    [] paginate categories
+    [] delete groupe of Categories
+    [] filter categories by name
