@@ -29,6 +29,22 @@ export default function CrudTable(props) {
     jQueryFunction();
   }, []);
 
+  const getNumberOfPages = () => {
+    let content = [];
+    for (let i = 0; i < props.records.length/props.nbRecordsShown; i++) {
+      content.push(
+        
+        <li onClick={props.handleGetTheSelectedPage} 
+        className={i==0 ? 'page-item active':"page-item"}>
+          <a href="javascript:void(0)" className="page-link">
+            {i+1}
+          </a>
+        </li>
+      );
+    }
+    return content;
+  };
+
   return (
     <section>
       <div>
@@ -149,37 +165,15 @@ export default function CrudTable(props) {
               </table>
               <div className="clearfix">
                 <div className="hint-text">
-                  Showing <b>5</b> out of <b>{props.records.length}</b> entries
+                  Showing <b>{props.nbRecordsShown}</b> out of{" "}
+                  <b>{props.records.length}</b> entries
                 </div>
                 <ul className="pagination">
                   <li className="page-item disabled">
                     <a href="#">Previous</a>
                   </li>
-                  <li className="page-item active">
-                    <a href="#" className="page-link">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a href="#" className="page-link">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a href="#" className="page-link">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a href="#" className="page-link">
-                      4
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a href="#" className="page-link">
-                      5
-                    </a>
-                  </li>
+                  {getNumberOfPages()}
+
                   <li className="page-item">
                     <a href="#" className="page-link">
                       Next

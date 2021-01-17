@@ -1,11 +1,14 @@
 import React from "react";
 import CrudTable from "../../../components/crud-table/crud-table";
 import axios from "./../../../utils/axios";
+import $ from "jquery";
 
 export default class Categories extends React.Component {
   constructor() {
     super();
     this.state = {
+      nbCatShown: 4,
+      page: 0,
       categories: [],
       category: {
         name: "",
@@ -30,9 +33,21 @@ export default class Categories extends React.Component {
         title="Categories"
         recordName="Category"
         propertiesNames={this.state.category}
+        nbRecordsShown={this.state.nbCatShown}
+        handleGetTheSelectedPage={this.handleGetTheSelectedPageCat}
       />
     );
   }
+
+  handleGetTheSelectedPageCat = (e) => {
+    $("ul.pagination li").each(function (e,li) {
+      $(li).removeClass("active");
+      
+      
+    });
+    $(e.target).parent().addClass("active");
+    this.forceUpdate();
+  };
 
   handleChangeInput = (e) => {
     this.setState((prevState) => {
@@ -43,7 +58,7 @@ export default class Categories extends React.Component {
 
   handleDeleteCategory = (catID) => {
     console.log(catID);
-    
+
     this.setState({ deletedCategoryId: catID });
   };
   handleEditCategory = (cat) => {
@@ -83,10 +98,12 @@ export default class Categories extends React.Component {
       ...this.state.category,
     };
     axios.post("/cats.json", Data).then((response) => {
+      console.log(response);
+
       let newCatList = this.state.categories;
       newCatList.push({
         ...Data,
-        id: response.name,
+        id: response.data.name,
       });
 
       this.setState({
@@ -103,13 +120,28 @@ export default class Categories extends React.Component {
   _getAllCategories = () => {
     axios.get("/cats.json").then((response) => {
       if (response.data != null) {
-        console.log(response);
         let fetchedData = [];
         Object.keys(response.data).map((key) =>
           fetchedData.push({ ...response.data[key], id: key })
         );
-        this.setState({ categories: fetchedData });
+
+        this.setState({ categoriesData: fetchedData }, function () {
+          this._addCurrentCategories(0);
+        });
       }
+    });
+  };
+  _addCurrentCategories = (page) => {
+    let newCurrentCategories = [];
+    for (
+      let i = page * this.state.nbCatShown;
+      i < (page + 1) * this.state.nbCatShown;
+      i++
+    ) {
+      newCurrentCategories.push(this.state.categoriesData[i]);
+    }
+    this.setState({
+      categories: newCurrentCategories,
     });
   };
 }

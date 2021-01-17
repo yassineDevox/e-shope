@@ -2,7 +2,10 @@ crud table for categories:
     ✔ get all categories @started(21-01-16 13:41) @done(21-01-16 13:58) @lasted(17m59s)
     ✔ add new category @started(21-01-16 13:59) @done(21-01-16 14:27) @lasted(28m58s)
     ✔ edit existing category @started(21-01-16 16:24) @done(21-01-16 17:38) @lasted(1h14m50s)
-    [] delete category @started(21-01-16 18:05)
-    [] paginate categories
+    ✔ delete category @started(21-01-16 18:05) @done(21-01-17 18:19) @lasted(1d14m10s)
+    ✔ paginate categories setup design and logic @started(21-01-17 18:19) @done(21-01-17 19:42) @lasted(1h23m8s)
+    [] paginate cats show the selected page 
+    [] paginate cats show the next page 
+    [] paginate cats show the prev page 
     [] delete groupe of Categories
     [] filter categories by name
