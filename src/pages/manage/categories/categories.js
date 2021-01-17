@@ -42,6 +42,8 @@ export default class Categories extends React.Component {
   };
 
   handleDeleteCategory = (catID) => {
+    console.log(catID);
+    
     this.setState({ deletedCategoryId: catID });
   };
   handleEditCategory = (cat) => {

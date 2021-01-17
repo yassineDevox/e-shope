@@ -194,7 +194,7 @@ export default function CrudTable(props) {
         <div id="addCategoryModal" className="modal fade">
           <div className="modal-dialog">
             <div className="modal-content">
-              <form onSubmit={props.handleNewRecord}>
+              <form>
                 <div className="modal-header">
                   <h4 className="modal-title">Add {props.recordName}</h4>
                   <button
@@ -233,6 +233,7 @@ export default function CrudTable(props) {
                     className="btn btn-success"
                     defaultValue="Add"
                     data-dismiss="modal"
+                    onClick={props.handleNewRecord}
                   />
                 </div>
               </form>
