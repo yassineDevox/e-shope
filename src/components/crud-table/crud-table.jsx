@@ -30,8 +30,9 @@ export default function CrudTable(props) {
   }, []);
 
   const getNumberOfPages = () => {
+    console.log(props.records.length/props.nbRecordsShown)
     let content = [];
-    for (let i = 0; i < props.records.length/props.nbRecordsShown; i++) {
+    for (let i = 0; i <= props.records.length/props.nbRecordsShown; i++) {
       content.push(
         
         <li onClick={props.handleGetTheSelectedPage} 
